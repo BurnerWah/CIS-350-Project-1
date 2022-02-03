@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Planet : MonoBehaviour
+public class Alien : MonoBehaviour
 {
-
+    public Slot slot;
 
     // Start is called before the first frame update
     void Start()
