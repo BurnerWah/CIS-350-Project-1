@@ -1,5 +1,5 @@
 ﻿/*
- * Robert Krawczyk, 
+ * Robert Krawczyk, Gerard Lamoureux
  * Project1
  * Controls hovering and hiding graphics, and keeps a reference to this slot's alien
  */
@@ -65,7 +65,7 @@ public class Slot : MonoBehaviour
     {
         if(alien != null)
         {
-            alien.transform.position = new Vector3(transform.position.x, transform.position.y, alien.transform.position.z); // Always snap my alien to me, just in case
+            alien.transform.position = new Vector3(transform.position.x, transform.position.y, -1); // Always snap my alien to me, just in case
         }
     }
 
@@ -84,6 +84,7 @@ public class Slot : MonoBehaviour
             {
                 hover_spriteRenderer.color = new Color(1, 1, 1, hoverAlpha_normal); // low opacity
             }
+            dragManager.SetCurrentSlot(this);
         }
             
     }
@@ -94,6 +95,7 @@ public class Slot : MonoBehaviour
         if (!hidden)
         {
             // Hide the white glow
+            dragManager.SetCurrentSlot(null);
             hover_spriteRenderer.color = new Color(1, 1, 1, 0); // White with 0 opacity
         }
             
@@ -121,8 +123,12 @@ public class Slot : MonoBehaviour
             print("Slot: MouseUp");
         if (!hidden)
         {
+
             // Try to put the alien in this slot
-            dragManager.TryPlaceDragged(this);
+            if (dragManager.GetCurrentSlot() != null)
+                dragManager.TryPlaceDragged(dragManager.GetCurrentSlot());
+            else
+                dragManager.Drop();
             hover_spriteRenderer.color = new Color(1, 1, 1, 0); // 0 opacity
         }
     }

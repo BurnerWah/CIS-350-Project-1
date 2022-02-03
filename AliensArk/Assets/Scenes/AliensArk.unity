@@ -214,6 +214,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1398455289}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &112711563 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+    type: 3}
+  m_PrefabInstance: {fileID: 5597916209108736257}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d93e55dc0684e74e9c83326939172f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &139631463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1045,6 +1057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e04f65862169ee4793626f0295e4ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG: 1
   dragging: 0
   alien_being_dragged: {fileID: 0}
 --- !u!4 &1244667223
@@ -1572,6 +1585,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 192769912}
     m_Modifications:
+    - target: {fileID: 2387615903679881342, guid: d1a59ac0798ccf04788e963da168b2f8,
+        type: 3}
+      propertyPath: hidden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387615903679881342, guid: d1a59ac0798ccf04788e963da168b2f8,
+        type: 3}
+      propertyPath: alien
+      value: 
+      objectReference: {fileID: 112711563}
     - target: {fileID: 8082329933114897057, guid: d1a59ac0798ccf04788e963da168b2f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1664,12 +1687,12 @@ PrefabInstance:
     - target: {fileID: 8974810631821240353, guid: 749ee15d0044449428e0f8a48ac6b6db,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.96
+      value: -4.38
       objectReference: {fileID: 0}
     - target: {fileID: 8974810631821240353, guid: 749ee15d0044449428e0f8a48ac6b6db,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.49
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 8974810631821240353, guid: 749ee15d0044449428e0f8a48ac6b6db,
         type: 3}
