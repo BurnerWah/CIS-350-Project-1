@@ -1,9 +1,17 @@
-﻿using System.Collections;
+﻿/*
+ * Robert Krawczyk, 
+ * Project1
+ * Controls the dragging of aliens from slot to slot. Some of this object's methods are called by Slots
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DragManager : MonoBehaviour
 {
+    public bool DEBUG = true;
+
     public bool dragging;
     public Alien alien_being_dragged;
     private Slot startSlot; // The planet/slot the alien was on before it started being dragged
@@ -11,8 +19,10 @@ public class DragManager : MonoBehaviour
     // Called by a planet/slot hitbox where an alien is. Starts dragging the alien
     public void StartDragging(Alien alien, Slot from_slot)
     {
-        if(alien != null && from_slot != null)
+        if (alien != null && from_slot != null)
         {
+            if (DEBUG)
+                print("DragManager: Starting to drag " + alien.name + " from " + from_slot.name);
             dragging = true;
             alien_being_dragged = alien;
             startSlot = from_slot;
@@ -23,8 +33,12 @@ public class DragManager : MonoBehaviour
     // Called by the background hitbox. Stops dragging the alien and doesn't place it anywhere
     public void Drop()
     {
+        if (DEBUG && alien_being_dragged != null)
+            print("DragManager: Trying to drop " + alien_being_dragged.name);
         if (dragging)
         {
+            if (DEBUG && alien_being_dragged != null)
+                print("DragManager: Dropping " + alien_being_dragged.name);
             alien_being_dragged.transform.position = startSlot.transform.position; // Put back where it started
             dragging = false;
             alien_being_dragged = null;
@@ -32,11 +46,17 @@ public class DragManager : MonoBehaviour
     }
 
     // Called by a planet/slot hitbox. Places the alien on that planet/slot
-    public bool TryPlace(Slot slot)
+    public bool TryPlaceDragged(Slot slot)
     {
+        if (DEBUG)
+            print("DragManager: Trying to place the dragged into " + slot.name);
         if (dragging)
         {
-            Place(slot);
+            Place(alien_being_dragged, slot);
+            if(startSlot != slot)
+                startSlot.alien = null;
+            dragging = false;
+            alien_being_dragged = null;
             return true;
         }
         else
@@ -46,15 +66,14 @@ public class DragManager : MonoBehaviour
     }
 
     // Can be indirectly called by planet/slots via TryPlace(), or by this DragManager itself when setting the initial slots of aliens
-    private void Place(Slot slot)
+    public void Place(Alien alien, Slot slot)
     {
-        alien_being_dragged.transform.position = slot.transform.position; // Place in center of planet/slot
-        startSlot.alien = null;
-        slot.alien = alien_being_dragged;
-        alien_being_dragged.slot = slot;
-        dragging = false;
-        alien_being_dragged = null;
-        
+        if (DEBUG)
+            print("DragManager: Placing " + alien.name + " into " + slot.name);
+        alien.transform.position = new Vector3(slot.transform.position.x, slot.transform.position.y, alien.transform.position.z); // Place in center of planet/slot
+
+        slot.alien = alien;
+        alien.slot = slot;
     }
 
     // Start is called before the first frame update
@@ -66,10 +85,14 @@ public class DragManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         // While being dragged, make the object follow the mouse
-        if(alien_being_dragged != null)
+        if (alien_being_dragged != null)
         {
-            alien_being_dragged.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -100); // -100 to make sure it's shown on top
+            if (DEBUG)
+                if (Time.time % .5 == 0) // twice per second
+                    print("DragManager: Keeping " + alien_being_dragged + " with mouse X and Y");
+            alien_being_dragged.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, alien_being_dragged.transform.position.z); // -100 to make sure it's shown on top
         }
         
     }

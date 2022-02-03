@@ -1,9 +1,17 @@
-﻿using System.Collections;
+﻿/*
+ * Robert Krawczyk, 
+ * Project1
+ * Controls hovering and hiding graphics, and keeps a reference to this slot's alien
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Slot : MonoBehaviour
 {
+    public bool DEBUG = true;
+
     // Object references
     DragManager dragManager;
     SpriteRenderer spriteRenderer;
@@ -14,7 +22,7 @@ public class Slot : MonoBehaviour
 
     // Public variables
     public Alien alien; // can only hold one
-    public bool hidden = false;
+    public bool hidden; // Check this in the Unity scene for this slot to start hidden
 
     // Private variables
     float hoverAlpha_dragging;
@@ -40,6 +48,16 @@ public class Slot : MonoBehaviour
         hide_spriteRenderer = hide.GetComponent<SpriteRenderer>();
         hideAlpha = hide_spriteRenderer.color.a;
         hide_spriteRenderer.color = new Color(1, 1, 1, 0); // White (normal) with 0 opacity
+
+        // Start hidden or not, based on whether you check the 'hidden' checkbox in the unity editor
+        if (hidden)
+        {
+            Hide();
+        }
+        else
+        {
+            Discover();
+        }
     }
 
     // Update is called once per frame
@@ -47,7 +65,7 @@ public class Slot : MonoBehaviour
     {
         if(alien != null)
         {
-            alien.transform.position = gameObject.transform.position; // just in case
+            alien.transform.position = new Vector3(transform.position.x, transform.position.y, alien.transform.position.z); // Always snap my alien to me, just in case
         }
     }
 
@@ -84,6 +102,8 @@ public class Slot : MonoBehaviour
     // When clicking hitbox
     private void OnMouseDown()
     {
+        if (DEBUG)
+            print("Slot: MouseDown");
         // Try to have the mouse pick up this slot's alien
         if (!hidden)
         {
@@ -97,10 +117,12 @@ public class Slot : MonoBehaviour
     // When mouse is released within the hitbox
     private void OnMouseUp()
     {
+        if (DEBUG)
+            print("Slot: MouseUp");
         if (!hidden)
         {
             // Try to put the alien in this slot
-            dragManager.TryPlace(this);
+            dragManager.TryPlaceDragged(this);
             hover_spriteRenderer.color = new Color(1, 1, 1, 0); // 0 opacity
         }
     }
