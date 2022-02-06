@@ -1,5 +1,5 @@
 ﻿/*
- * Robert Krawczyk, 
+ * Robert Krawczyk, Jaden Pleasants
  * Project1
  * Just detects if aliens are dropped in space
  */
@@ -10,14 +10,11 @@ using UnityEngine;
 
 public class Background : MonoBehaviour
 {
-    bool DEBUG = true;
-
     DragManager dragManager;
 
     private void OnMouseUp()
     {
-        if (DEBUG)
-            print("Background: MouseUp");
+        Debug.Log("Background: MouseUp");
         dragManager.Drop();
     }
 
@@ -30,6 +27,6 @@ public class Background : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
