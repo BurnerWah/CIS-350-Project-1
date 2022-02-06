@@ -1,5 +1,5 @@
 ﻿/*
- * Robert Krawczyk, Gerard Lamoureux 
+ * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants
  * Project1
  * Just knows which slot it's in, creates random name
  */
@@ -17,7 +17,7 @@ public class Alien : MonoBehaviour
 
     //Just a QOL thing, Give each species a randomly generated name.
     private string species;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,7 @@ public class Alien : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public string GetSpeciesName()
@@ -40,29 +40,15 @@ public class Alien : MonoBehaviour
     string MakeRandomName()
     {
         string name = "";
-        for(int i=0; i<Random.Range(3,10);i++)
+        name += RandomConsonant().ToString().ToUpper();
+        for (int i = 1; i < Random.Range(3, 10); i++)
         {
-            if (i % 2 == 0)
-                name += RandomConsonant(i);
-            else
-                name += RandomVowel(i);
+            name += (i % 2 == 0) ? RandomConsonant() : RandomVowel();
         }
         return name;
     }
-    string RandomConsonant(int i)
-    {
-        string[] Consonants = new string[21] { "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z" };
-        if(i == 0)
-            return Consonants[Random.Range(0, Consonants.Length)].ToUpper();
-        else
-            return Consonants[Random.Range(0, Consonants.Length)];
-    }
-    string RandomVowel(int i)
-    {
-        string[] Vowels = new string[5] { "a", "e", "i", "o", "u" };
-        if (i == 0)
-            return Vowels[Random.Range(0, Vowels.Length)].ToUpper();
-        else
-            return Vowels[Random.Range(0, Vowels.Length)];
-    }
+    private static readonly char[] Consonants = { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z' };
+    private static readonly char[] Vowels = { 'a', 'e', 'i', 'o', 'u' };
+    private char RandomConsonant() => Consonants[Random.Range(0, Consonants.Length)];
+    private char RandomVowel() => Vowels[Random.Range(0, Vowels.Length)];
 }
