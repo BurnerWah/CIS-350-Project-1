@@ -17,7 +17,7 @@ public class SlotSetterUpper : MonoBehaviour
     DragManager dragManager;
 
     // Private variables
-    float snapDistance = 1;
+    float snapDistance = .5f;
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +47,7 @@ public class SlotSetterUpper : MonoBehaviour
                 for (int j = 0; j < ark.transform.childCount; j++)
                 {
                     Slot slot = planets.transform.GetChild(j).GetComponent<Slot>();
-                    if (Vector3.Distance(alien.transform.position, slot.transform.position) <= 5) // If alien is close enough to slot
+                    if (Vector3.Distance(alien.transform.position, slot.transform.position) <= snapDistance) // If alien is close enough to slot
                     {
                         // Place alien in slot
                         dragManager.Place(alien, slot);

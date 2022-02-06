@@ -13,6 +13,7 @@ public class Slot : MonoBehaviour
     public bool DEBUG = true;
 
     // Object references
+    Popup popup;
     DragManager dragManager;
     SpriteRenderer spriteRenderer;
     GameObject hover;
@@ -33,8 +34,10 @@ public class Slot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Find objects
+        // Search Scene
         dragManager = Object.FindObjectOfType<DragManager>();
+
+        popup = GetComponentInChildren<Popup>(); // Gets the first popup child
 
         // Start up the hovering glow object
         hover = gameObject.transform.GetChild(0).gameObject; // First child should be the hover object. Ship slots are never hidden so they will have a placeholder instead
@@ -74,6 +77,12 @@ public class Slot : MonoBehaviour
     {
         if (!hidden)
         {
+            // Display the resource popup
+            if(popup != null)
+            {
+                popup.GoUp();
+            }
+
             // Display the white glow
             if (dragManager.dragging)
             {
@@ -94,6 +103,12 @@ public class Slot : MonoBehaviour
     {
         if (!hidden)
         {
+            // Hide the resource popup
+            if (popup != null)
+            {
+                popup.GoDown();
+            }
+
             // Hide the white glow
             dragManager.SetCurrentSlot(null);
             hover_spriteRenderer.color = new Color(1, 1, 1, 0); // White with 0 opacity
