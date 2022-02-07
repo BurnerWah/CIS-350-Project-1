@@ -5,29 +5,29 @@ using UnityEngine;
 public class Popup : MonoBehaviour
 {
     // References
-    private SpriteManager spriteManager;
+    public SpriteManager spriteManager;
+    private SpriteRenderer spriteRenderer;
 
     /* The resources on this planet. Options:
-     * Water
-     * Oxygen
-     * Mineral
-     * High temperature
-     * Medium temperature?
-     * Low temperature
-     * I forget the others
+     * Oxygen/Nitrogen/NoAir
+     * Soil/Ocean/Rocky
+     * Hot/Warm/Cold
+     * Iron/Lumber/NoResource
      */
-    public string[] resources;
-    private List<Sprite> resources_sprites = new List<Sprite>();
+    public string resources; // You type in the resources in the editor, in order, comma separated. ex. "oxygen,soil,warm,lumber"
 
     // Private variables for handling resource display
-    float resourceSprite_width = .4f;
-    float popup_width = 1.5f;
+    float icon_z = -.5f;
+    float icon_width = .4f;
+    float popup_margin = 1f;
+    float popup_width;
 
     // Private variables for handling the animation
-    bool goingUp, stayingUp, goingDown, stayingDown = false;
+    float zPos;
+    public bool goingUp, stayingUp, goingDown, stayingDown = false;
     float goUp_duration = .3f;
     float startedGoingUp;
-    float goDown_duration = .1f;
+    float goDown_duration = .15f;
     float startedGoingDown;
     float upPosY;
     float updownDistance = 1;
@@ -36,12 +36,17 @@ public class Popup : MonoBehaviour
     void Start()
     {
         spriteManager = Object.FindObjectOfType<SpriteManager>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
+        zPos = transform.position.z;
         upPosY = transform.position.y;
         transform.position += Vector3.down * updownDistance;
-        GetComponent<SpriteRenderer>().enabled = false;
+        spriteRenderer.enabled = false;
 
+        popup_width = spriteRenderer.bounds.size.x - popup_margin;
         UpdateResourceDisplay();
+
+        stayingDown = true;
     }
     public void GoUp()
     {
@@ -50,7 +55,7 @@ public class Popup : MonoBehaviour
             goingDown = stayingUp = stayingDown = false;
             goingUp = true;
             startedGoingUp = Time.time;
-            GetComponent<SpriteRenderer>().enabled = true;
+            spriteRenderer.enabled = true;
         }
         
     }
@@ -69,10 +74,8 @@ public class Popup : MonoBehaviour
     {
         if (goingUp)
         {
-            if(Time.time < startedGoingUp + goUp_duration)
+            if(Time.time <= startedGoingUp + goUp_duration)
             {
-                // I don't expect this to work because math never seems to work for me, but it could be cool.
-                // (Alternatively, we could just learn how to do animations and then just activate the animation instead of doing this)
                 // y = cos(pi*x) + b, but fit to the first half of a cosine graph to get an ease-in,ease-out effect
                 // x is the percentage of the time duration we are now at
                 float newY = Mathf.Cos((Mathf.PI / goUp_duration) * (goUp_duration - (Time.time - startedGoingUp))) + (upPosY - updownDistance);
@@ -91,7 +94,7 @@ public class Popup : MonoBehaviour
         }
         else if(goingDown)
         {
-            if (Time.time < startedGoingDown + goDown_duration)
+            if (Time.time <= startedGoingDown + goDown_duration)
             {
                 print("going down");
                 // Same thing but adding a pi so that we get the second half of a cosine graph
@@ -112,22 +115,31 @@ public class Popup : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        // Not necessary anymore
+        //transform.position = new Vector3(transform.position.x, transform.position.y, zPos);
+    }
+
     void UpdateResourceDisplay()
     {
-        resources_sprites.Clear();
-        foreach(string resource in resources){
-            switch (resource.ToLower())
+        // Spawn the appropriate icons as children of this Popup
+        foreach (string resource in resources.Split(','))
+        {
+            print($"{transform.parent.name}: Trying to get {resource} icon...");
+            ResourceIcon icon;
+            if(spriteManager.Icons.TryGetValue(resource, out icon))
             {
-                case "water":
-                    resources_sprites.Add(spriteManager.water);
-                    break;
-                // TODO add the others
-                default:
-                    print(name + ": " + resource + " is not a valid resource name");
-                    break;
+                print($"{transform.parent.name}: Creating icon: {icon.name}");
+                Instantiate(icon, transform);
             }
         }
-        // TODO Spawn SpriteRenderers
-        // TODO Change their positions to be lined up and centered within the popup
+        // Position the icons
+        float curr_x = 0 - (popup_width / 2) + (icon_width / 2);
+        foreach(ResourceIcon icon in GetComponentsInChildren<ResourceIcon>())
+        {
+            icon.transform.localPosition = new Vector3(curr_x, 0, icon_z);
+            curr_x += icon_width;
+        }
     }
 }

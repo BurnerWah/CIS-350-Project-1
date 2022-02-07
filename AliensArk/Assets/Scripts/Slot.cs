@@ -35,15 +35,15 @@ public class Slot : MonoBehaviour
         popup = GetComponentInChildren<Popup>(); // Gets the first popup child
 
         // Start up the hovering glow object
-        // First child should be the hover object. Ship slots are never hidden so they will have a placeholder instead
-        var hoverGameObject = gameObject.transform.GetChild(0).gameObject;
+        // First child should be the hover object
+        var hoverGameObject = transform.GetChild(0).gameObject;
         hover = hoverGameObject.GetComponent<SpriteRenderer>();
         hoverDragColor = hover.color;
         hoverNormalColor = hoverDragColor * new Color(1, 1, 1, 0.5f);
         hover.color = Color.clear;
 
         // Start up the hiding object
-        var hideGameObject = gameObject.transform.GetChild(1).gameObject; // Second child should be the hide object
+        var hideGameObject = gameObject.transform.GetChild(1).gameObject; // Second child should be the hide object. Ship slots are never hidden so they will have a placeholder instead
         hide = hideGameObject.GetComponent<SpriteRenderer>();
         hideOldColor = hide.color;
         hide.color = Color.clear;
