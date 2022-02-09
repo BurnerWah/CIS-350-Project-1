@@ -60,7 +60,7 @@ public class DragManager : MonoBehaviour
     // Can be indirectly called by planet/slots via TryPlace(), or by this DragManager itself when setting the initial slots of aliens
     public void Place(Alien alien, Slot slot)
     {
-        Debug.Log($"DragManager: Placing {alien.GetSpeciesName()} into {slot.name}");
+        Debug.Log($"DragManager: Placing {alien.GetSpeciesName()} with {alien.GetAlienTerrain()}, {alien.GetAlienAtmo()}, and {alien.GetAlienResource()} into {slot.name}");
         alien.transform.position = new Vector3(slot.transform.position.x, slot.transform.position.y, -1); // Place in center of planet/slot
 
         slot.alien = alien;

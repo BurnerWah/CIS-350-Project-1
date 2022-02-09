@@ -17,12 +17,16 @@ public class Alien : MonoBehaviour
 
     //Just a QOL thing, Give each species a randomly generated name.
     private string species;
+    private string[] attributes = new string[3];
 
 
     // Start is called before the first frame update
     void Start()
     {
         species = MakeRandomName();
+        attributes[0] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomTerrain();
+        attributes[1] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomAtmo();
+        attributes[2] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomResource();
     }
 
     // Update is called once per frame
@@ -35,6 +39,11 @@ public class Alien : MonoBehaviour
     {
         return species;
     }
+
+    //get the alien attributes
+    public string GetAlienTerrain() => attributes[0];
+    public string GetAlienAtmo() => attributes[1];
+    public string GetAlienResource() => attributes[2];
 
     //Generate a random name.
     string MakeRandomName()
