@@ -1,5 +1,5 @@
 ﻿/*
- * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants
+ * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants Conner Ogle
  * Project1
  * Just knows which slot it's in, creates random name
  */
@@ -12,7 +12,9 @@ public class Alien : MonoBehaviour
 {
     // This script so far only covers dragging and dropping the alien.
     // You could check 'slot' for what resources the planet/ark slot has, to make this alien die or something :)
-
+    public string Terrain;
+    public string Temp;
+    
     public Slot slot;
 
     //Just a QOL thing, Give each species a randomly generated name.
@@ -40,10 +42,28 @@ public class Alien : MonoBehaviour
         return species;
     }
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    public string GetTerrain()
+    {
+        return Terrain;
+    }
+
+    public string GetTemp()
+    {
+        return Temp;
+    }
+=======
+>>>>>>> Stashed changes
     //get the alien attributes
     public string GetAlienTerrain() => attributes[0];
     public string GetAlienAtmo() => attributes[1];
     public string GetAlienResource() => attributes[2];
+<<<<<<< Updated upstream
+=======
+>>>>>>> 8a4b556a136466672e3871c7869ff88e7919d53b
+>>>>>>> Stashed changes
 
     //Generate a random name.
     string MakeRandomName()
