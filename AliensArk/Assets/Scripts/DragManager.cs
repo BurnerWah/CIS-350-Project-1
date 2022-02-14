@@ -1,5 +1,5 @@
 ﻿/*
- * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants
+ * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants Conner Ogle
  * Project1
  * Controls the dragging of aliens from slot to slot. Some of this object's methods are called by Slots
  */
@@ -45,14 +45,20 @@ public class DragManager : MonoBehaviour
         Debug.Log($"DragManager: Trying to place the dragged into {slot.name}");
         if (dragging && draggedAlien != null)
         {
-            Place(draggedAlien, slot);
-            if (startSlot != slot)
+            if (IsCompatible(draggedAlien, slot))
             {
-                startSlot.alien = null;
+                Place(draggedAlien, slot);
+                if (startSlot != slot)
+                {
+                    startSlot.alien = null;
+                }
+                dragging = false;
+                draggedAlien = null;
+                return true;
             }
             dragging = false;
             draggedAlien = null;
-            return true;
+
         }
         return false;
     }
@@ -98,5 +104,18 @@ public class DragManager : MonoBehaviour
     public Slot GetCurrentSlot()
     {
         return currentSlot;
+    }
+    public bool IsCompatible(Alien alien, Slot slot)
+    {
+
+        if (alien.GetTerrain() == slot.GetTerrain() || alien.GetTemp() == slot.GetTemp())
+        {
+            return true;
+        }
+        else if (slot.GetTerrain() == "Ship" && slot.GetTemp() == "Ship")
+        {
+            return true;
+        }
+        return false;
     }
 }

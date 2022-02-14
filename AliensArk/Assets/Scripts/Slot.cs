@@ -1,5 +1,5 @@
 ﻿/*
- * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants
+ * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants Conner Ogle
  * Project1
  * Controls hovering and hiding graphics, and keeps a reference to this slot's alien
  */
@@ -19,6 +19,8 @@ public class Slot : MonoBehaviour
     // Public variables
     public Alien alien; // can only hold one
     public bool hidden; // Check this in the Unity scene for this slot to start hidden
+    public string Terrain;
+    public string Temp;
 
     // Private variables
     private Color hoverDragColor;
@@ -153,4 +155,25 @@ public class Slot : MonoBehaviour
         hidden = false;
         hide.color = Color.clear;
     }
+
+    public string GetTerrain()
+    {
+        return Terrain;
+    }
+
+    public string GetTemp()
+    {
+        return Temp;
+    }
+
+    //public string GetPlanetTerrain()
+    //{
+    //    return gameObject.GetComponent<Planet>().GetTerrain();
+    //}
+
+    //public string GetPlanetTemp()
+    //{
+    //    return gameObject.GetComponent<Planet>().GetTemp();
+    //}
+
 }

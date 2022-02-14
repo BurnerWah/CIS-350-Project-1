@@ -1,5 +1,5 @@
 ﻿/*
- * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants
+ * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants Conner Ogle
  * Project1
  * Just knows which slot it's in, creates random name
  */
@@ -12,6 +12,8 @@ public class Alien : MonoBehaviour
 {
     // This script so far only covers dragging and dropping the alien.
     // You could check 'slot' for what resources the planet/ark slot has, to make this alien die or something :)
+    public string Terrain;
+    public string Temp;
 
     public Slot slot;
 
@@ -24,9 +26,9 @@ public class Alien : MonoBehaviour
     void Start()
     {
         species = MakeRandomName();
-        attributes[0] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomTerrain();
-        attributes[1] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomAtmo();
-        attributes[2] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomResource();
+        //attributes[0] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomTerrain();
+        //attributes[1] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomAtmo();
+        //attributes[2] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomResource();
     }
 
     // Update is called once per frame
@@ -38,6 +40,15 @@ public class Alien : MonoBehaviour
     public string GetSpeciesName()
     {
         return species;
+    }
+    public string GetTerrain()
+    {
+        return Terrain;
+    }
+
+    public string GetTemp()
+    {
+        return Temp;
     }
 
     //get the alien attributes
