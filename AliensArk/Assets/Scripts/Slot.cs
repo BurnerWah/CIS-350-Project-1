@@ -126,7 +126,7 @@ public class Slot : MonoBehaviour
         Debug.Log("Slot: MouseUp");
         if (!hidden)
         {
-          
+
             // Try to put the alien in this slot
             if (dragManager.GetCurrentSlot() != null)
             {

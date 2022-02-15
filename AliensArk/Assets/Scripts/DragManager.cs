@@ -45,20 +45,20 @@ public class DragManager : MonoBehaviour
         Debug.Log($"DragManager: Trying to place the dragged into {slot.name}");
         if (dragging && draggedAlien != null)
         {
-                if(IsCompatible(draggedAlien, slot))
+            if (IsCompatible(draggedAlien, slot))
+            {
+                Place(draggedAlien, slot);
+                if (startSlot != slot)
                 {
-                    Place(draggedAlien, slot);
-                    if (startSlot != slot)
-                    {
-                       startSlot.alien = null;
-                    }
-                    dragging = false;
-                    draggedAlien = null;
-                    return true;
+                    startSlot.alien = null;
                 }
+                dragging = false;
+                draggedAlien = null;
+                return true;
+            }
             dragging = false;
             draggedAlien = null;
-                 
+
         }
         return false;
     }
@@ -112,7 +112,7 @@ public class DragManager : MonoBehaviour
         {
             return true;
         }
-        else if(slot.GetTerrain() == "Ship" && slot.GetTemp() == "Ship")
+        else if (slot.GetTerrain() == "Ship" && slot.GetTemp() == "Ship")
         {
             return true;
         }

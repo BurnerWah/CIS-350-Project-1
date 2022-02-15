@@ -14,7 +14,7 @@ public class Alien : MonoBehaviour
     // You could check 'slot' for what resources the planet/ark slot has, to make this alien die or something :)
     public string Terrain;
     public string Temp;
-    
+
     public Slot slot;
 
     //Just a QOL thing, Give each species a randomly generated name.
