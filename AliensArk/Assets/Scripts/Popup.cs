@@ -12,7 +12,7 @@ public class Popup : MonoBehaviour
      * Oxygen/Nitrogen/NoAir
      * Soil/Ocean/Rocky
      * Hot/Warm/Cold
-     * Iron/Lumber/NoResource
+     * Iron/Lumber/NoResources
      */
     public string resources; // You type in the resources in the editor, in order, comma separated. ex. "oxygen,soil,warm,lumber"
 
