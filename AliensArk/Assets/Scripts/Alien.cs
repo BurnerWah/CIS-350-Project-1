@@ -21,11 +21,15 @@ public class Alien : MonoBehaviour
     private string species;
     private string[] attributes = new string[3];
 
+    private TurnManager TM;
 
     // Start is called before the first frame update
     void Start()
     {
         species = MakeRandomName();
+        // Register health updates with the turn update event.
+        TM = TurnManager.GetTurnManager();
+        TM.TurnEvent.AddListener(UpdateHealth);
         //attributes[0] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomTerrain();
         //attributes[1] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomAtmo();
         //attributes[2] = GameObject.FindGameObjectWithTag("Attributes").GetComponent<Attributes>().GetRandomResource();
@@ -35,6 +39,11 @@ public class Alien : MonoBehaviour
     void Update()
     {
 
+    }
+
+    void UpdateHealth()
+    {
+        // TODO: Update health based on things like current conditions
     }
 
     public string GetSpeciesName()
