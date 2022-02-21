@@ -79,7 +79,7 @@ public class DragManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        turnManager = TurnManager.GetTurnManager();
     }
 
     // Update is called once per frame

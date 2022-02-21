@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/*
+ * Robert Krawczyk
+ * Project 2
+ * Chooses and locks planets
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

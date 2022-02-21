@@ -1,5 +1,5 @@
 ﻿/*
- * Jaden Pleasants
+ * Jaden Pleasants, Robert Krawczyk
  * Project 2
  * Event-based turn system
  */
@@ -31,6 +31,11 @@ public class TurnManager : MonoBehaviour
         _currentTurn++;
         txt_turnCounter.text = _currentTurn.ToString();
         TurnEvent.Invoke();
+    }
+
+    public void Reset()
+    {
+        _currentTurn = 1;
     }
 
     // Start is called before the first frame update

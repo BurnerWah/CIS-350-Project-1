@@ -48,7 +48,7 @@ public class Slot : MonoBehaviour
         // Popup
         popup = GetComponentInChildren<Popup>();
         // Locking
-        txt_lockedTurnsLeft = transform.GetChild(3).GetComponent<Text>() ;
+        txt_lockedTurnsLeft = GetComponentInChildren<Text>() ;
         txt_lockedTurnsLeft.text = "";
         locked = false;
 
