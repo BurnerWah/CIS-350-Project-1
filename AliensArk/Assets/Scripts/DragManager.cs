@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class DragManager : MonoBehaviour
 {
+    TurnManager turnManager;
     public bool dragging;
     public Alien draggedAlien;
     private Slot startSlot; // The planet/slot the alien was on before it started being dragged
@@ -55,6 +56,7 @@ public class DragManager : MonoBehaviour
                 }
                 dragging = false;
                 draggedAlien = null;
+                turnManager.EndTurn();
                 return true;
             }
             dragging = false;

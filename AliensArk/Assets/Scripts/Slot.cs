@@ -6,18 +6,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
     // Object references
     Popup popup;
     DragManager dragManager;
+    TurnManager turnManager;
     SpriteRenderer hover; // the white glow on hover
     SpriteRenderer hide; // the black layer when a planet has not been discovered
+    SpriteRenderer locker; // the green? layer when locked
+    Text txt_lockedTurnsLeft;
 
     // Public variables
     public Alien alien; // can only hold one
-    public bool hidden; // Check this in the Unity scene for this slot to start hidden
+    public bool hiddenAtStart; // Check this in the Unity scene for this slot to start hidden
+    bool hidden; // access with IsHidden()
+    bool locked; // access with IsLocked()
+    int turnLocked, lockTime = 5;
     public string _Terrain;
     public string Terrain => _Terrain;
 
@@ -35,8 +42,15 @@ public class Slot : MonoBehaviour
     {
         // Search Scene
         dragManager = Object.FindObjectOfType<DragManager>();
+        turnManager = TurnManager.GetTurnManager();
+        turnManager.TurnEvent.AddListener(NextTurn);
 
-        popup = GetComponentInChildren<Popup>(); // Gets the first popup child
+        // Popup
+        popup = GetComponentInChildren<Popup>();
+        // Locking
+        txt_lockedTurnsLeft = transform.GetChild(3).GetComponent<Text>() ;
+        txt_lockedTurnsLeft.text = "";
+        locked = false;
 
         // Start up the hovering glow object
         // First child should be the hover object
@@ -73,7 +87,7 @@ public class Slot : MonoBehaviour
     }
 
     // When mouse enters the hitbox
-    private void OnMouseEnter()
+    public void OnMouseEnter()
     {
         if (!hidden)
         {
@@ -91,7 +105,7 @@ public class Slot : MonoBehaviour
     }
 
     // When mouse exits the hitbox
-    private void OnMouseExit()
+    public void OnMouseExit()
     {
         if (!hidden)
         {
@@ -158,7 +172,42 @@ public class Slot : MonoBehaviour
         hide.color = Color.clear;
     }
 
+    public bool IsHidden() { return hidden; }
 
+    public void Lock()
+    {
+        locked = true;
+        print($"{name} locked");
+        locker.enabled = true;
+        turnLocked = turnManager.currentTurn;
+    }
+
+    void NextTurn()
+    {
+        if (locked)
+        {
+            int lockedTurnsLeft = lockTime - (turnManager.currentTurn - turnLocked);
+            if (lockedTurnsLeft > 0)
+            {
+                txt_lockedTurnsLeft.text = lockedTurnsLeft.ToString();
+                // TODO play locked countdown animation (not created yet)
+            }
+            else
+            {
+
+                Unlock();
+            }
+        }
+        
+        
+        
+    }
+
+    private void Unlock() // Could potentially be public
+    {
+        locked = false;
+        txt_lockedTurnsLeft.text = "";
+    }
 
     //public string GetPlanetTerrain()
     //{
