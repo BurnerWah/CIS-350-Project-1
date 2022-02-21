@@ -1,5 +1,5 @@
 ﻿/*
- * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants
+ * Robert Krawczyk, Gerard Lamoureux, Jaden Pleasants Conner Ogle
  * Project1
  * Controls the dragging of aliens from slot to slot. Some of this object's methods are called by Slots
  */
@@ -13,14 +13,15 @@ public class DragManager : MonoBehaviour
     public bool dragging;
     public Alien draggedAlien;
     private Slot startSlot; // The planet/slot the alien was on before it started being dragged
-    private Slot currentSlot; // this could probably be made into a property
+    private Slot _currentSlot;
+    public Slot CurrentSlot { get => _currentSlot; set => _currentSlot = value; }
 
     // Called by a planet/slot hitbox where an alien is. Starts dragging the alien
     public void StartDragging(Alien alien, Slot from_slot)
     {
         if (alien != null && from_slot != null)
         {
-            Debug.Log($"DragManager: Starting to drag {alien.GetSpeciesName()} from {from_slot.name}");
+            Debug.Log($"DragManager: Starting to drag {alien.SpeciesName} from {from_slot.name}");
             dragging = true;
             draggedAlien = alien;
             startSlot = from_slot;
@@ -32,7 +33,7 @@ public class DragManager : MonoBehaviour
     {
         if (draggedAlien != null && dragging)
         {
-            Debug.Log($"DragManager: Dropping {draggedAlien.GetSpeciesName()}");
+            Debug.Log($"DragManager: Dropping {draggedAlien.SpeciesName}");
             draggedAlien.transform.position = startSlot.transform.position; // Put back where it started
             dragging = false;
             draggedAlien = null;
@@ -45,14 +46,20 @@ public class DragManager : MonoBehaviour
         Debug.Log($"DragManager: Trying to place the dragged into {slot.name}");
         if (dragging && draggedAlien != null)
         {
-            Place(draggedAlien, slot);
-            if (startSlot != slot)
+            if (IsCompatible(draggedAlien, slot))
             {
-                startSlot.alien = null;
+                Place(draggedAlien, slot);
+                if (startSlot != slot)
+                {
+                    startSlot.alien = null;
+                }
+                dragging = false;
+                draggedAlien = null;
+                return true;
             }
             dragging = false;
             draggedAlien = null;
-            return true;
+
         }
         return false;
     }
@@ -60,7 +67,7 @@ public class DragManager : MonoBehaviour
     // Can be indirectly called by planet/slots via TryPlace(), or by this DragManager itself when setting the initial slots of aliens
     public void Place(Alien alien, Slot slot)
     {
-        Debug.Log($"DragManager: Placing {alien.GetSpeciesName()} into {slot.name}");
+        Debug.Log($"DragManager: Placing {alien.SpeciesName} with {alien.GetAlienTerrain()}, {alien.GetAlienAtmo()}, and {alien.GetAlienResource()} into {slot.name}");
         alien.transform.position = new Vector3(slot.transform.position.x, slot.transform.position.y, -1); // Place in center of planet/slot
 
         slot.alien = alien;
@@ -90,13 +97,17 @@ public class DragManager : MonoBehaviour
 
     }
 
-    public void SetCurrentSlot(Slot slot)
+    public bool IsCompatible(Alien alien, Slot slot)
     {
-        currentSlot = slot;
-    }
 
-    public Slot GetCurrentSlot()
-    {
-        return currentSlot;
+        if (alien.Terrain == slot.Terrain || alien.Temp == slot.Temp)
+        {
+            return true;
+        }
+        else if (slot.Terrain == "Ship" && slot.Temp == "Ship")
+        {
+            return true;
+        }
+        return false;
     }
 }
