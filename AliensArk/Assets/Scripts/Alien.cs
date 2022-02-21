@@ -12,13 +12,18 @@ public class Alien : MonoBehaviour
 {
     // This script so far only covers dragging and dropping the alien.
     // You could check 'slot' for what resources the planet/ark slot has, to make this alien die or something :)
-    public string Terrain;
-    public string Temp;
+    public string _Terrain;
+    public string Terrain => _Terrain;
+
+    public string _Temp;
+    public string Temp => _Temp;
 
     public Slot slot;
 
     //Just a QOL thing, Give each species a randomly generated name.
     private string species;
+    public string SpeciesName => species;
+
     private string[] attributes = new string[3];
 
     private TurnManager TM;
@@ -46,19 +51,6 @@ public class Alien : MonoBehaviour
         // TODO: Update health based on things like current conditions
     }
 
-    public string GetSpeciesName()
-    {
-        return species;
-    }
-    public string GetTerrain()
-    {
-        return Terrain;
-    }
-
-    public string GetTemp()
-    {
-        return Temp;
-    }
 
     //get the alien attributes
     public string GetAlienTerrain() => attributes[0];

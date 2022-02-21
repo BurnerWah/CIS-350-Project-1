@@ -3,7 +3,6 @@
  * Project1
  * Controls hovering and hiding graphics, and keeps a reference to this slot's alien
  */
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,8 +18,11 @@ public class Slot : MonoBehaviour
     // Public variables
     public Alien alien; // can only hold one
     public bool hidden; // Check this in the Unity scene for this slot to start hidden
-    public string Terrain;
-    public string Temp;
+    public string _Terrain;
+    public string Terrain => _Terrain;
+
+    public string _Temp;
+    public string Temp => _Temp;
 
     // Private variables
     private Color hoverDragColor;
@@ -83,7 +85,7 @@ public class Slot : MonoBehaviour
 
             // Display the white glow
             hover.color = dragManager.dragging ? hoverDragColor : hoverNormalColor;
-            dragManager.SetCurrentSlot(this);
+            dragManager.CurrentSlot = this;
         }
 
     }
@@ -100,7 +102,7 @@ public class Slot : MonoBehaviour
             }
 
             // Hide the white glow
-            dragManager.SetCurrentSlot(null);
+            dragManager.CurrentSlot = null;
             hover.color = Color.clear;
         }
 
@@ -128,9 +130,9 @@ public class Slot : MonoBehaviour
         {
 
             // Try to put the alien in this slot
-            if (dragManager.GetCurrentSlot() != null)
+            if (dragManager.CurrentSlot != null)
             {
-                dragManager.TryPlaceDragged(dragManager.GetCurrentSlot());
+                dragManager.TryPlaceDragged(dragManager.CurrentSlot);
             }
             else
             {
@@ -156,15 +158,7 @@ public class Slot : MonoBehaviour
         hide.color = Color.clear;
     }
 
-    public string GetTerrain()
-    {
-        return Terrain;
-    }
 
-    public string GetTemp()
-    {
-        return Temp;
-    }
 
     //public string GetPlanetTerrain()
     //{

@@ -17,16 +17,11 @@ public class TurnManager : MonoBehaviour
     }
 
     private UnityEvent _TurnEvent = new UnityEvent();
-    public UnityEvent TurnEvent
-    {
-        get { return _TurnEvent; }
-    }
+    public UnityEvent TurnEvent => _TurnEvent;
 
     // Turn counter (with a property for accessing it)
     private int _currentTurn = 0;
-    public int currentTurn {
-        get { return _currentTurn; }
-    }
+    public int currentTurn => _currentTurn;
 
     public void EndTurn()
     {
