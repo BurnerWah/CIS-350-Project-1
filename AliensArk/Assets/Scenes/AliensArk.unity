@@ -804,9 +804,9 @@ MonoBehaviour:
   - {fileID: 1257472316}
   - {fileID: 1813479751}
   shipSlots: []
-  progressBar: {fileID: 0}
-  turnCounter: {fileID: 0}
-  evilShip: {fileID: 0}
+  progressBar: {fileID: 172797445}
+  turnCounter: {fileID: 1524206365}
+  evilShip: {fileID: 530131753}
 --- !u!4 &258960436
 Transform:
   m_ObjectHideFlags: 0
@@ -2326,6 +2326,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.2000122
       objectReference: {fileID: 0}
+    - target: {fileID: 1788175630906239890, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2017847169950219054, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
       propertyPath: m_RootOrder
@@ -3205,6 +3210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e963ceff74c4945b177bb1e566a483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  txt_turnCounter: {fileID: 1631388678}
 --- !u!4 &1924494399
 Transform:
   m_ObjectHideFlags: 0
