@@ -51,6 +51,10 @@ public class Alien : MonoBehaviour
         // TODO: Update health based on things like current conditions
     }
 
+    void OnDestroy()
+    {
+        TM.TurnEvent.RemoveListener(UpdateHealth);
+    }
 
     //get the alien attributes
     public string GetAlienTerrain() => attributes[0];

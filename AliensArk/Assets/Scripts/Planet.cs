@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Planet : MonoBehaviour
 {
-
-
     // Start is called before the first frame update
     //public string Terrain;
     //public string Temp;

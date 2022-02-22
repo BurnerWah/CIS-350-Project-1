@@ -6,6 +6,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,15 +19,17 @@ public class TutorialManager : MonoBehaviour
     SpriteRenderer filterSR;
 
     bool focusing = false;
+    public bool IsFocusing => focusing;
+
     float focus_z = -10f; // When focusing on objects, we put them at the very front so they are on top. This is that position
     List<GameObject> focus_objs;
     List<float> focus_objs_prefocus_z;
 
     int part = -1; // Current section of the tutorial
-    Dictionary<int, List<GameObject>> graphics; // Populated in start()
-    string graphicsPrefix = "Tut_";
-
-    public bool IsFocusing() { return focusing; }
+    // Dictionary<int, List<GameObject>> _graphics; // Populated in start()
+    List<GameObject>[] graphics;
+    readonly string graphicsPrefix = "Tut_";
+    Regex graphicsReg = new Regex(@"^Tut_(\d)", RegexOptions.Compiled);
 
     void Start()
     {
@@ -36,29 +39,37 @@ public class TutorialManager : MonoBehaviour
         // Get the graphics gameobjects (children of TutorialManager)
         foreach (SpriteRenderer child in GetComponentsInChildren<SpriteRenderer>())
         {
-            // If the child is named "Tut_x..." then add it to the graphics dictionary
-            if (child.name.Substring(0, graphicsPrefix.Length) == graphicsPrefix)
+            if (graphicsReg.IsMatch(child.name))
             {
-                int graphicPart;
-                if (int.TryParse(child.name.Substring(graphicsPrefix.Length, graphicsPrefix.Length + 1), out graphicPart))
-                {
-                    graphics[graphicPart].Add(child.gameObject);
-                }
+                graphics[int.Parse(graphicsReg.Match(child.name).Groups[0].Value)].Add(child.gameObject);
             }
+            // If the child is named "Tut_x..." then add it to the graphics dictionary
+            // if (child.name.Substring(0, graphicsPrefix.Length) == graphicsPrefix)
+            // {
+            //     int graphicPart;
+            //     if (int.TryParse(child.name.Substring(graphicsPrefix.Length, graphicsPrefix.Length + 1), out graphicPart))
+            //     {
+            //         graphics[graphicPart].Add(child.gameObject);
+            //     }
+            // }
         }
         // Get any objects named correctly under the Canvas
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject child = transform.GetChild(i).gameObject;
-            // If the child is named "Tut_x..." then add it to the graphics dictionary
-            if (child.name.Substring(0, graphicsPrefix.Length) == graphicsPrefix)
+            if (graphicsReg.IsMatch(child.name))
             {
-                int graphicPart;
-                if (int.TryParse(child.name.Substring(graphicsPrefix.Length, graphicsPrefix.Length + 1), out graphicPart))
-                {
-                    graphics[graphicPart].Add(child);
-                }
+                graphics[int.Parse(graphicsReg.Match(child.name).Groups[0].Value)].Add(child);
             }
+            // If the child is named "Tut_x..." then add it to the graphics dictionary
+            // if (child.name.Substring(0, graphicsPrefix.Length) == graphicsPrefix)
+            // {
+            //     int graphicPart;
+            //     if (int.TryParse(child.name.Substring(graphicsPrefix.Length, graphicsPrefix.Length + 1), out graphicPart))
+            //     {
+            //         graphics[graphicPart].Add(child);
+            //     }
+            // }
         }
 
         // Assigning planets to tutorial parts

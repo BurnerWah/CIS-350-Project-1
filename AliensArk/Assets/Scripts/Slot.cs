@@ -22,7 +22,9 @@ public class Slot : MonoBehaviour
     // Public variables
     public Alien alien; // can only hold one
     public bool hiddenAtStart; // Check this in the Unity scene for this slot to start hidden
-    bool hidden; // access with IsHidden()
+    bool hidden;
+    public bool IsHidden => hidden;
+
     bool locked; // access with IsLocked()
     int turnLocked, lockTime = 5;
     public string _Terrain;
@@ -92,10 +94,7 @@ public class Slot : MonoBehaviour
         if (!hidden)
         {
             // Display the resource popup
-            if (popup != null)
-            {
-                popup.GoUp();
-            }
+            popup?.GoUp();
 
             // Display the white glow
             hover.color = dragManager.dragging ? hoverDragColor : hoverNormalColor;
@@ -110,10 +109,7 @@ public class Slot : MonoBehaviour
         if (!hidden)
         {
             // Hide the resource popup
-            if (popup != null)
-            {
-                popup.GoDown();
-            }
+            popup?.GoDown();
 
             // Hide the white glow
             dragManager.CurrentSlot = null;
@@ -142,7 +138,6 @@ public class Slot : MonoBehaviour
         Debug.Log("Slot: MouseUp");
         if (!hidden)
         {
-
             // Try to put the alien in this slot
             if (dragManager.CurrentSlot != null)
             {
@@ -162,7 +157,6 @@ public class Slot : MonoBehaviour
     {
         hidden = true;
         hide.color = hideOldColor;
-
     }
 
     // Show/discover the planet
@@ -171,8 +165,6 @@ public class Slot : MonoBehaviour
         hidden = false;
         hide.color = Color.clear;
     }
-
-    public bool IsHidden() { return hidden; }
 
     public void Lock()
     {
@@ -189,18 +181,14 @@ public class Slot : MonoBehaviour
             int lockedTurnsLeft = lockTime - (turnManager.currentTurn - turnLocked);
             if (lockedTurnsLeft > 0)
             {
-                txt_lockedTurnsLeft.text = lockedTurnsLeft.ToString();
+                txt_lockedTurnsLeft.text = $"{lockedTurnsLeft}";
                 // TODO play locked countdown animation (not created yet)
             }
             else
             {
-
                 Unlock();
             }
         }
-
-
-
     }
 
     private void Unlock() // Could potentially be public

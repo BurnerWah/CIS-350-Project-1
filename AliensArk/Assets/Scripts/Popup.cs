@@ -24,7 +24,13 @@ public class Popup : MonoBehaviour
 
     // Private variables for handling the animation
     float zPos;
-    public bool goingUp, stayingUp, goingDown, stayingDown = false;
+
+    enum State
+    {
+        GOING_UP, STAYING_UP, GOING_DOWN, STAYING_DOWN
+    }
+    State currentState;
+
     float goUp_duration = .3f;
     float startedGoingUp;
     float goDown_duration = .15f;
@@ -46,25 +52,22 @@ public class Popup : MonoBehaviour
         popup_width = spriteRenderer.bounds.size.x - popup_margin;
         UpdateResourceDisplay();
 
-        stayingDown = true;
+        currentState = State.STAYING_DOWN;
     }
     public void GoUp()
     {
-        if (!stayingUp)
+        if (currentState != State.STAYING_UP)
         {
-            goingDown = stayingUp = stayingDown = false;
-            goingUp = true;
+            currentState = State.GOING_UP;
             startedGoingUp = Time.time;
             spriteRenderer.enabled = true;
         }
-
     }
 
     public void GoDown()
     {
-        if (stayingUp)
+        if (currentState == State.STAYING_UP)
         {
-            goingDown = true;
             startedGoingDown = Time.time;
         }
     }
@@ -72,54 +75,54 @@ public class Popup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (goingUp)
+        switch (currentState)
         {
-            if (Time.time <= startedGoingUp + goUp_duration)
-            {
-                // y = cos(pi*x) + b, but fit to the first half of a cosine graph to get an ease-in,ease-out effect
-                // x is the percentage of the time duration we are now at
-                float newY = Mathf.Cos((Mathf.PI / goUp_duration) * (goUp_duration - (Time.time - startedGoingUp))) + (upPosY - updownDistance);
-                transform.position = new Vector3(transform.position.x, newY, transform.position.z);
-            }
-            else
-            {
-                goingUp = false;
-                stayingUp = true;
-            }
-        }
-        else if (stayingUp)
-        {
-            // Should be unnecessary to force it to stick at the top, but might as well do it
-            transform.position = transform.position = new Vector3(transform.position.x, transform.position.y, upPosY);
-        }
-        else if (goingDown)
-        {
-            if (Time.time <= startedGoingDown + goDown_duration)
-            {
-                print("going down");
-                // Same thing but adding a pi so that we get the second half of a cosine graph
-                // y = cos(pi*x+pi) + b
-                float newY = Mathf.Cos(Mathf.PI + (Mathf.PI / goDown_duration) * (goDown_duration - (Time.time - startedGoingDown))) + (upPosY - updownDistance);
-                transform.position = new Vector3(transform.position.x, newY, transform.position.z);
-            }
-            else
-            {
-                goingDown = false;
-                stayingDown = true;
-            }
-        }
-        else if (stayingDown)
-        {
-            // Should be unnecessary to force it to stick at the bottom, but might as well do it
-            transform.position = transform.position = new Vector3(transform.position.x, transform.position.y, upPosY - updownDistance);
+            case State.GOING_UP:
+                {
+                    if (Time.time <= startedGoingUp + goUp_duration)
+                    {
+                        // y = cos(pi*x) + b, but fit to the first half of a cosine graph to get an ease-in,ease-out effect
+                        // x is the percentage of the time duration we are now at
+                        float newY = Mathf.Cos(Mathf.PI / goUp_duration * (goUp_duration - (Time.time - startedGoingUp))) + (upPosY - updownDistance);
+                        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+                    }
+                    else
+                    {
+                        currentState = State.STAYING_UP;
+                    }
+
+                    break;
+                }
+
+            case State.STAYING_UP:
+                // Should be unnecessary to force it to stick at the top, but might as well do it
+                transform.position = new Vector3(transform.position.x, transform.position.y, upPosY);
+                break;
+            case State.GOING_DOWN:
+                {
+                    if (Time.time <= startedGoingDown + goDown_duration)
+                    {
+                        print("going down");
+                        // Same thing but adding a pi so that we get the second half of a cosine graph
+                        // y = cos(pi*x+pi) + b
+                        float newY = Mathf.Cos(Mathf.PI + Mathf.PI / goDown_duration * (goDown_duration - (Time.time - startedGoingDown))) + (upPosY - updownDistance);
+                        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+                    }
+                    else
+                    {
+                        currentState = State.STAYING_DOWN;
+                    }
+
+                    break;
+                }
+
+            case State.STAYING_DOWN:
+                // Should be unnecessary to force it to stick at the bottom, but might as well do it
+                transform.position = new Vector3(transform.position.x, transform.position.y, upPosY - updownDistance);
+                break;
         }
     }
 
-    private void LateUpdate()
-    {
-        // Not necessary anymore
-        //transform.position = new Vector3(transform.position.x, transform.position.y, zPos);
-    }
 
     void UpdateResourceDisplay()
     {

@@ -2943,6 +2943,7 @@ GameObject:
   - component: {fileID: 1631388677}
   - component: {fileID: 1631388679}
   - component: {fileID: 1631388678}
+  - component: {fileID: 1631388680}
   m_Layer: 5
   m_Name: '#'
   m_TagString: Untagged
@@ -3009,6 +3010,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631388676}
   m_CullTransparentMesh: 0
+--- !u!114 &1631388680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631388676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4265586710e144598ec626ede33e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1772410475
 GameObject:
   m_ObjectHideFlags: 0
@@ -3210,7 +3223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e963ceff74c4945b177bb1e566a483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt_turnCounter: {fileID: 1631388678}
 --- !u!4 &1924494399
 Transform:
   m_ObjectHideFlags: 0

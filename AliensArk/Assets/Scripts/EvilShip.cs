@@ -1,5 +1,5 @@
 ﻿/*
- * Robert Krawczyk
+ * Robert Krawczyk, Jaden Pleasants
  * Project 2
  * Chooses and locks planets
  */
@@ -18,6 +18,11 @@ public class EvilShip : MonoBehaviour
     {
         turnManager = TurnManager.GetTurnManager();
         turnManager.TurnEvent.AddListener(NextTurn);
+    }
+
+    void OnDestroy()
+    {
+        turnManager.TurnEvent.RemoveListener(NextTurn);
     }
 
     void NextTurn()
