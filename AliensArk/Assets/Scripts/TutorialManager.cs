@@ -1,5 +1,5 @@
 ﻿/*
- * Robert Krawczyk
+ * Robert Krawczyk, Jaden Pleasants
  * Project 2
  * Manages tutorial
  */

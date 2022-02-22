@@ -264,7 +264,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 5597916209108736257}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 423865598}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d93e55dc0684e74e9c83326939172f2, type: 3}
@@ -422,6 +422,53 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 139631463}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &162405246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 162405248}
+  - component: {fileID: 162405247}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &162405247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162405246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57e2086e2498874a968a9c739db3c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnsBetweenSpawns: 1
+  turnsBeforeFirstSpawn: 1
+  maxAliensToSpawn: 3
+  ailenPrefab: {fileID: 423865598}
+--- !u!4 &162405248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162405246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &171502448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,6 +1108,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &423865598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1828760755080507439, guid: 749ee15d0044449428e0f8a48ac6b6db,
+    type: 3}
+  m_PrefabInstance: {fileID: 5597916209108736257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &530131753
 GameObject:
   m_ObjectHideFlags: 0
