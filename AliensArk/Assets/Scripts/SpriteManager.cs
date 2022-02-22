@@ -11,7 +11,7 @@ public class SpriteManager : MonoBehaviour
      * Iron/Lumber/NoResource
      */
     // Plug the sprites into these fields
-    public ResourceIcon Oxygen,Nitrogen,NoAir,Soil,Ocean,Rocky,Hot,Warm,Cold,Iron,Lumber,NoResource;
+    public ResourceIcon Oxygen, Nitrogen, NoAir, Soil, Ocean, Rocky, Hot, Warm, Cold, Iron, Lumber, NoResource;
     public Dictionary<string, ResourceIcon> Icons = new Dictionary<string, ResourceIcon>();
     // Maybe there could be a similar set of Sprites stored here for planets
 
@@ -35,12 +35,12 @@ public class SpriteManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

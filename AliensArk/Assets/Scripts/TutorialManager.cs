@@ -34,20 +34,20 @@ public class TutorialManager : MonoBehaviour
         filterSR.color = TranslucentColor(0);
 
         // Get the graphics gameobjects (children of TutorialManager)
-        foreach(SpriteRenderer child in GetComponentsInChildren<SpriteRenderer>())
+        foreach (SpriteRenderer child in GetComponentsInChildren<SpriteRenderer>())
         {
             // If the child is named "Tut_x..." then add it to the graphics dictionary
-            if(child.name.Substring(0,graphicsPrefix.Length) == graphicsPrefix)
+            if (child.name.Substring(0, graphicsPrefix.Length) == graphicsPrefix)
             {
                 int graphicPart;
-                if(int.TryParse(child.name.Substring(graphicsPrefix.Length, graphicsPrefix.Length + 1), out graphicPart))
+                if (int.TryParse(child.name.Substring(graphicsPrefix.Length, graphicsPrefix.Length + 1), out graphicPart))
                 {
                     graphics[graphicPart].Add(child.gameObject);
                 }
             }
         }
         // Get any objects named correctly under the Canvas
-        for (int i = 0 ; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             GameObject child = transform.GetChild(i).gameObject;
             // If the child is named "Tut_x..." then add it to the graphics dictionary
@@ -62,7 +62,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         // Assigning planets to tutorial parts
-        foreach(GameObject shipSlot in shipSlots)
+        foreach (GameObject shipSlot in shipSlots)
         {
             graphics[0].Add(shipSlot);
         }
@@ -75,7 +75,7 @@ public class TutorialManager : MonoBehaviour
         graphics[5].Add(evilShip);
 
         // Hide all planets to start
-        foreach(GameObject planet in planets)
+        foreach (GameObject planet in planets)
         {
             planet.GetComponent<Slot>().Hide();
         }
@@ -103,7 +103,7 @@ public class TutorialManager : MonoBehaviour
                 // Tutorial Part 1: Move any alien to the earth-like planet
 
                 // If an alien has been moved to planet 2, this part is complete
-                if(planets[2].GetComponent<Slot>().alien != null)
+                if (planets[2].GetComponent<Slot>().alien != null)
                 {
                     StopFocusing();
                     StartFocusingOn(graphics[2]);
@@ -130,11 +130,12 @@ public class TutorialManager : MonoBehaviour
 
         // Put all objects being focused on to the foreground
         focus_objs_prefocus_z = new List<float>();
-        foreach (GameObject obj in objects){
+        foreach (GameObject obj in objects)
+        {
             focus_objs_prefocus_z.Add(obj.transform.position.z);
             obj.transform.position = SetZ(obj.transform.position, focus_z);
         }
-        
+
     }
 
     void StopFocusing()

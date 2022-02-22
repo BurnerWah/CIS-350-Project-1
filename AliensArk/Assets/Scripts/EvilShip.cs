@@ -22,7 +22,7 @@ public class EvilShip : MonoBehaviour
 
     void NextTurn()
     {
-        if(turnManager.currentTurn % 5 == 1 && turnManager.currentTurn != 1)
+        if (turnManager.currentTurn % 5 == 1 && turnManager.currentTurn != 1)
         {
             MoveToNextPlanet();
         }
@@ -39,6 +39,6 @@ public class EvilShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

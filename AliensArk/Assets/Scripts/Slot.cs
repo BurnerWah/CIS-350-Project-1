@@ -48,7 +48,7 @@ public class Slot : MonoBehaviour
         // Popup
         popup = GetComponentInChildren<Popup>();
         // Locking
-        txt_lockedTurnsLeft = GetComponentInChildren<Text>() ;
+        txt_lockedTurnsLeft = GetComponentInChildren<Text>();
         txt_lockedTurnsLeft.text = "";
         locked = false;
 
@@ -198,9 +198,9 @@ public class Slot : MonoBehaviour
                 Unlock();
             }
         }
-        
-        
-        
+
+
+
     }
 
     private void Unlock() // Could potentially be public

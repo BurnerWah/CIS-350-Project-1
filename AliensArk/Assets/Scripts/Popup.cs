@@ -57,7 +57,7 @@ public class Popup : MonoBehaviour
             startedGoingUp = Time.time;
             spriteRenderer.enabled = true;
         }
-        
+
     }
 
     public void GoDown()
@@ -74,7 +74,7 @@ public class Popup : MonoBehaviour
     {
         if (goingUp)
         {
-            if(Time.time <= startedGoingUp + goUp_duration)
+            if (Time.time <= startedGoingUp + goUp_duration)
             {
                 // y = cos(pi*x) + b, but fit to the first half of a cosine graph to get an ease-in,ease-out effect
                 // x is the percentage of the time duration we are now at
@@ -92,7 +92,7 @@ public class Popup : MonoBehaviour
             // Should be unnecessary to force it to stick at the top, but might as well do it
             transform.position = transform.position = new Vector3(transform.position.x, transform.position.y, upPosY);
         }
-        else if(goingDown)
+        else if (goingDown)
         {
             if (Time.time <= startedGoingDown + goDown_duration)
             {
@@ -111,7 +111,7 @@ public class Popup : MonoBehaviour
         else if (stayingDown)
         {
             // Should be unnecessary to force it to stick at the bottom, but might as well do it
-            transform.position = transform.position = new Vector3(transform.position.x, transform.position.y, upPosY-updownDistance);
+            transform.position = transform.position = new Vector3(transform.position.x, transform.position.y, upPosY - updownDistance);
         }
     }
 
@@ -128,7 +128,7 @@ public class Popup : MonoBehaviour
         {
             print($"{transform.parent.name}: Trying to get {resource} icon...");
             ResourceIcon icon;
-            if(spriteManager.Icons.TryGetValue(resource, out icon))
+            if (spriteManager.Icons.TryGetValue(resource, out icon))
             {
                 print($"{transform.parent.name}: Creating icon: {icon.name}");
                 Instantiate(icon, transform);
@@ -136,7 +136,7 @@ public class Popup : MonoBehaviour
         }
         // Position the icons
         float curr_x = 0 - (popup_width / 2) + (icon_width / 2);
-        foreach(ResourceIcon icon in GetComponentsInChildren<ResourceIcon>())
+        foreach (ResourceIcon icon in GetComponentsInChildren<ResourceIcon>())
         {
             icon.transform.localPosition = new Vector3(curr_x, 0, icon_z);
             curr_x += icon_width;
