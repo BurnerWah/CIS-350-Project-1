@@ -7,7 +7,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
@@ -24,12 +23,9 @@ public class TurnManager : MonoBehaviour
     private int _currentTurn = 1;
     public int currentTurn => _currentTurn;
 
-    public Text txt_turnCounter;
-
     public void EndTurn()
     {
         _currentTurn++;
-        txt_turnCounter.text = _currentTurn.ToString();
         TurnEvent.Invoke();
     }
 
