@@ -12,6 +12,7 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
+    public Alien startingAlien;
     public GameObject canvas;
     public GameObject filter;
     public GameObject[] planets, shipSlots;
@@ -22,26 +23,28 @@ public class TutorialManager : MonoBehaviour
     public bool IsFocusing => focusing;
 
     float focus_z = -10f; // When focusing on objects, we put them at the very front so they are on top. This is that position
-    List<GameObject> focus_objs;
-    List<float> focus_objs_prefocus_z;
+    List<GameObject> focused_graphics;
+    List<GameObject> focused_tempGraphics;
 
     int part = -1; // Current section of the tutorial
     // Dictionary<int, List<GameObject>> _graphics; // Populated in start()
-    List<GameObject>[] graphics;
-    readonly string graphicsPrefix = "Tut_";
-    Regex graphicsReg = new Regex(@"^Tut_(\d)", RegexOptions.Compiled);
+    List<GameObject>[] graphics = new List<GameObject>[10]; // Preexisting objects that are focused on in the tutorial
+    List<GameObject>[] tempGraphics = new List<GameObject>[10]; // Tutorial-only objects (like glows) that are turned on or off in the tutorial
+    readonly string tempGraphicsPrefix = "Tut_";
+    Regex tempGraphicsReg = new Regex(@"^Tut_(\d)", RegexOptions.Compiled);
 
     void Start()
     {
         filterSR = filter.GetComponent<SpriteRenderer>();
         filterSR.color = TranslucentColor(0);
 
-        // Get the graphics gameobjects (children of TutorialManager)
+        // Get any tutorial-only graphics under TutorialManager
         foreach (SpriteRenderer child in GetComponentsInChildren<SpriteRenderer>())
         {
-            if (graphicsReg.IsMatch(child.name))
+            if (tempGraphicsReg.IsMatch(child.name))
             {
-                graphics[int.Parse(graphicsReg.Match(child.name).Groups[0].Value)].Add(child.gameObject);
+                tempGraphics[int.Parse(tempGraphicsReg.Match(child.name).Groups[0].Value)].Add(child.gameObject);
+                child.gameObject.SetActive(false);
             }
             // If the child is named "Tut_x..." then add it to the graphics dictionary
             // if (child.name.Substring(0, graphicsPrefix.Length) == graphicsPrefix)
@@ -57,9 +60,9 @@ public class TutorialManager : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject child = transform.GetChild(i).gameObject;
-            if (graphicsReg.IsMatch(child.name))
+            if (tempGraphicsReg.IsMatch(child.name))
             {
-                graphics[int.Parse(graphicsReg.Match(child.name).Groups[0].Value)].Add(child);
+                graphics[int.Parse(tempGraphicsReg.Match(child.name).Groups[0].Value)].Add(child);
             }
             // If the child is named "Tut_x..." then add it to the graphics dictionary
             // if (child.name.Substring(0, graphicsPrefix.Length) == graphicsPrefix)
@@ -72,17 +75,29 @@ public class TutorialManager : MonoBehaviour
             // }
         }
 
-        // Assigning planets to tutorial parts
+        // Deciding which pre-existing objects are active during which tutorial part.
+        //(Any temporary tutorial-only object can be named "Tut_X" to auto assign it to part X)
+
+        // Tutorial Part 0: Highlighting ship slots
         foreach (GameObject shipSlot in shipSlots)
         {
             graphics[0].Add(shipSlot);
         }
+        // Tutorial Part 1: Move the starting alien to the earth-like planet
+        graphics[1].Add(startingAlien.gameObject);
         graphics[1].Add(planets[2]);
+        graphics[1].Add(startingAlien.gameObject);
+        // Tutorial Part 2: That's not a good fit for the alien. Move the alien to the other highlighted planet
         graphics[2].Add(planets[2]);
         graphics[2].Add(planets[4]);
         graphics[2].Add(progressBar);
+        // Tutorial Part 3: See progress bar
         graphics[3].Add(progressBar);
+        // Tutorial Part 4: There's a turn counter
         graphics[4].Add(turnCounter);
+        graphics[4].Add(evilShip);
+        // Tutorial Part 5: There's an evil ship
+        graphics[5].Add(turnCounter);
         graphics[5].Add(evilShip);
 
         // Hide all planets to start
@@ -92,7 +107,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         // Tutorial Part 0: Highlighting ship slots
-        StartFocusingOn(graphics[0]);
+        StartFocusingOn(0);
         part = 0;
     }
 
@@ -101,38 +116,68 @@ public class TutorialManager : MonoBehaviour
         switch (part)
         {
             case 0:
-                // Tutorial Part 0 Condition: Click
+                // Tutorial Part 0: The ship slots are highlighted
+                // Click to continue
                 if (Input.GetMouseButtonDown(0))
                 {
-                    part = 1;
                     StopFocusing();
-                    StartFocusingOn(graphics[1]);
+                    StartFocusingOn(1);
                     planets[2].GetComponent<Slot>().Discover();
+                    part = 1;
                 }
                 break;
             case 1:
-                // Tutorial Part 1: Move any alien to the earth-like planet
+                // Tutorial Part 1: Move the starting alien to the earth-like planet
 
                 // If an alien has been moved to planet 2, this part is complete
-                if (planets[2].GetComponent<Slot>().alien != null)
+                // Move the alien to continue
+                if (planets[2].GetComponent<Slot>().alien == startingAlien)
                 {
                     StopFocusing();
-                    StartFocusingOn(graphics[2]);
+                    StartFocusingOn(2);
                     planets[4].GetComponent<Slot>().Discover();
+                    part = 2;
                 }
                 break;
             case 2:
-                // Tutorial Part 1: Move any alien to the other planet
-                if (planets[4].GetComponent<Slot>().alien != null)
+                // Tutorial Part 2: That's not a good fit for the alien. Move the alien to the other highlighted planet
+                // Move the alien to continue
+                if (planets[4].GetComponent<Slot>().alien == startingAlien)
                 {
                     StopFocusing();
-                    StartFocusingOn(graphics[2]);
+                    StartFocusingOn(3);
+                    part = 3;
+                }
+                break;
+            case 3:
+                // Tutorial Part 3: The alien is happy. See on the progress bar that one of the lights is lit up
+                // Click to continue
+                if (Input.GetMouseButtonDown(0))
+                {
+                    StopFocusing();
+                    StartFocusingOn(4);
+                    part = 4;
+                }
+                break;
+            case 4:
+                // Tutorial Part 4: See the turn counter
+                // Click to continue
+                if (Input.GetMouseButtonDown(0))
+                {
+                    StopFocusing();
+                    StartFocusingOn(5);
+                    part = 5;
                 }
                 break;
         }
     }
 
-    void StartFocusingOn(List<GameObject> objects)
+
+    void StartFocusingOn(int partNo)
+    {
+        StartFocusingOn(graphics[partNo], tempGraphics[partNo]);
+    }
+    void StartFocusingOn(List<GameObject> graphics, List<GameObject> tempGraphics)
     {
         focusing = true;
 
@@ -140,11 +185,16 @@ public class TutorialManager : MonoBehaviour
         filterSR.color = TranslucentColor(.8f);
 
         // Put all objects being focused on to the foreground
-        focus_objs_prefocus_z = new List<float>();
-        foreach (GameObject obj in objects)
+            
+        foreach (GameObject obj in graphics)
         {
-            focus_objs_prefocus_z.Add(obj.transform.position.z);
-            obj.transform.position = SetZ(obj.transform.position, focus_z);
+            obj.transform.position = AddZ(obj.transform.position, focus_z);
+        }
+
+        foreach (GameObject obj in tempGraphics)
+        {
+            obj.SetActive(true);
+            obj.transform.position = AddZ(obj.transform.position, focus_z);
         }
 
     }
@@ -156,16 +206,25 @@ public class TutorialManager : MonoBehaviour
         // Blacken rest of screen
         filterSR.color = TranslucentColor(0);
 
-        // Put objects back to where they were
-        for (int i = 0; i < focus_objs.Count; i++)
+        // Put graphics and tempGraphics back to where they were
+        for (int i = 0; i < focused_graphics.Count; i++)
         {
-            focus_objs[i].transform.position = SetZ(focus_objs[i].transform.position, focus_objs_prefocus_z[i]);
+            focused_graphics[i].transform.position = AddZ(focused_graphics[i].transform.position, -focus_z);
         }
+        for (int i = 0; i < focused_tempGraphics.Count; i++)
+        {
+            focused_tempGraphics[i].SetActive(false);
+            focused_tempGraphics[i].transform.position = AddZ(focused_tempGraphics[i].transform.position, -focus_z);
+        }
+
+        // Reset storage
+        focused_graphics = new List<GameObject>();
+        focused_tempGraphics = new List<GameObject>();
     }
 
-    Vector3 SetZ(Vector3 vec, float z)
+    Vector3 AddZ(Vector3 vec, float z)
     {
-        return new Vector3(vec.x, vec.y, z);
+        return new Vector3(vec.x, vec.y, vec.z + z);
     }
 
     Color TranslucentColor(float alpha)

@@ -21,7 +21,8 @@ public class Slot : MonoBehaviour
 
     // Public variables
     public Alien alien; // can only hold one
-    public bool hiddenAtStart; // Check this in the Unity scene for this slot to start hidden
+    public bool isPlanet; // Checked in planet prefab
+    public bool hiddenAtStart;
     bool hidden;
     public bool IsHidden => hidden;
 
@@ -47,12 +48,15 @@ public class Slot : MonoBehaviour
         turnManager = TurnManager.GetTurnManager();
         turnManager.TurnEvent.AddListener(NextTurn);
 
-        // Popup
-        popup = GetComponentInChildren<Popup>();
-        // Locking
-        txt_lockedTurnsLeft = GetComponentInChildren<Text>();
-        txt_lockedTurnsLeft.text = "";
-        locked = false;
+        if(isPlanet)
+        {
+            // Popup
+            popup = GetComponentInChildren<Popup>();
+            // Locking
+            txt_lockedTurnsLeft = GetComponentInChildren<Text>();
+            txt_lockedTurnsLeft.text = "";
+            locked = false;
+        }
 
         // Start up the hovering glow object
         // First child should be the hover object
@@ -68,8 +72,8 @@ public class Slot : MonoBehaviour
         hideOldColor = hide.color;
         hide.color = Color.clear;
 
-        // Start hidden or not, based on whether you check the 'hidden' checkbox in the unity editor
-        if (hidden)
+        // Start hidden or not
+        if (hiddenAtStart)
         {
             Hide();
         }
@@ -155,28 +159,38 @@ public class Slot : MonoBehaviour
     // Make the planet unavailable. Probably only used when starting up the scene
     public void Hide()
     {
-        hidden = true;
-        hide.color = hideOldColor;
+        if (!hidden & isPlanet)
+        {
+            hidden = true;
+            hide.color = hideOldColor;
+        }
     }
 
     // Show/discover the planet
     public void Discover()
     {
-        hidden = false;
-        hide.color = Color.clear;
+        if (hidden & isPlanet)
+        {
+            hidden = false;
+            hide.color = Color.clear;
+        }
     }
 
     public void Lock()
     {
-        locked = true;
-        print($"{name} locked");
-        locker.enabled = true;
-        turnLocked = turnManager.currentTurn;
+        if (!locked && isPlanet)
+        {
+            locked = true;
+            print($"{name} locked");
+            locker.enabled = true;
+            turnLocked = turnManager.currentTurn;
+        }
     }
 
     void NextTurn()
     {
-        if (locked)
+        // Decrement locker
+        if (locked && isPlanet)
         {
             int lockedTurnsLeft = lockTime - (turnManager.currentTurn - turnLocked);
             if (lockedTurnsLeft > 0)
@@ -193,8 +207,11 @@ public class Slot : MonoBehaviour
 
     private void Unlock() // Could potentially be public
     {
-        locked = false;
-        txt_lockedTurnsLeft.text = "";
+        if (locked && isPlanet)
+        {
+            locked = false;
+            txt_lockedTurnsLeft.text = "";
+        }
     }
 
     //public string GetPlanetTerrain()
