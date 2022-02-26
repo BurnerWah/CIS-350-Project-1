@@ -139,6 +139,11 @@ PrefabInstance:
       propertyPath: SlotTemp
       value: cold
       objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: isPlanet
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -312,6 +317,11 @@ PrefabInstance:
         type: 3}
       propertyPath: SlotTemp
       value: hot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: isPlanet
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
@@ -722,6 +732,11 @@ PrefabInstance:
         type: 3}
       propertyPath: SlotTemp
       value: hot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: isPlanet
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
@@ -2526,6 +2541,11 @@ PrefabInstance:
       propertyPath: SlotTemp
       value: warm
       objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: isPlanet
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -2706,6 +2726,11 @@ PrefabInstance:
         type: 3}
       propertyPath: SlotTemp
       value: warm
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: isPlanet
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
@@ -3279,6 +3304,11 @@ PrefabInstance:
         type: 3}
       propertyPath: SlotTemp
       value: warm
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: isPlanet
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
