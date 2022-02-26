@@ -841,6 +841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4083cdb26a8e95642a0240e66ef7bab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingAlien: {fileID: 0}
   canvas: {fileID: 542844868}
   filter: {fileID: 1570806466}
   planets:
@@ -1481,6 +1482,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1a59ac0798ccf04788e963da168b2f8, type: 3}
+--- !u!1 &688932417 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9152616659478042904, guid: d1a59ac0798ccf04788e963da168b2f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 688932416}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &692318821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,6 +1649,60 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &785357098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 785357099}
+  - component: {fileID: 785357100}
+  m_Layer: 0
+  m_Name: SlotManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &785357099
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785357098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &785357100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785357098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bab63ffbe88d0448ac045cc3e8ed3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _planetSlots:
+  - {fileID: 805040875}
+  - {fileID: 2023838193}
+  - {fileID: 1078143536}
+  - {fileID: 138250998}
+  - {fileID: 1257472316}
+  - {fileID: 1813479751}
+  _shipSlots:
+  - {fileID: 688932417}
+  - {fileID: 1146697070}
+  - {fileID: 3865148342230898671}
 --- !u!1001 &804318247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2245,6 +2306,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1a59ac0798ccf04788e963da168b2f8, type: 3}
+--- !u!1 &1146697070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9152616659478042904, guid: d1a59ac0798ccf04788e963da168b2f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1146697069}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1211602975
 GameObject:
   m_ObjectHideFlags: 0
@@ -3602,6 +3669,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1a59ac0798ccf04788e963da168b2f8, type: 3}
+--- !u!1 &3865148342230898671 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9152616659478042904, guid: d1a59ac0798ccf04788e963da168b2f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 3865148342230898670}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5597916209108736257
 PrefabInstance:
   m_ObjectHideFlags: 0
