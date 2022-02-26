@@ -12,24 +12,26 @@ public class SpriteManager : MonoBehaviour
      */
     // Plug the sprites into these fields
     public ResourceIcon Oxygen, Nitrogen, NoAir, Soil, Ocean, Rocky, Hot, Warm, Cold, Iron, Lumber, NoResource;
-    public Dictionary<string, ResourceIcon> Icons = new Dictionary<string, ResourceIcon>();
+    public Dictionary<string, ResourceIcon> Icons;
     // Maybe there could be a similar set of Sprites stored here for planets
 
     // Awake is called before Start
     void Awake()
     {
-        Icons.Add("oxygen", Oxygen);
-        Icons.Add("nitrogen", Nitrogen);
-        Icons.Add("noair", NoAir);
-        Icons.Add("soil", Soil);
-        Icons.Add("ocean", Ocean);
-        Icons.Add("rocky", Rocky);
-        Icons.Add("hot", Hot);
-        Icons.Add("warm", Warm);
-        Icons.Add("cold", Cold);
-        Icons.Add("iron", Iron);
-        Icons.Add("lumber", Lumber);
-        Icons.Add("noresource", NoResource);
+        Icons = new Dictionary<string, ResourceIcon> {
+            {"oxygen", Oxygen},
+            {"nitrogen", Nitrogen},
+            {"noair", NoAir},
+            {"soil", Soil},
+            {"ocean", Ocean},
+            {"rocky", Rocky},
+            {"hot", Hot},
+            {"warm", Warm},
+            {"cold", Cold},
+            {"iron", Iron},
+            {"lumber", Lumber},
+            {"noresource", NoResource}
+         };
     }
 
     // Start is called before the first frame update

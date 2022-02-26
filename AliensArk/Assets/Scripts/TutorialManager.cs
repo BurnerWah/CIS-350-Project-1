@@ -3,7 +3,6 @@
  * Project 2
  * Manages tutorial
  */
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -185,7 +184,7 @@ public class TutorialManager : MonoBehaviour
         filterSR.color = TranslucentColor(.8f);
 
         // Put all objects being focused on to the foreground
-            
+
         foreach (GameObject obj in graphics)
         {
             obj.transform.position = AddZ(obj.transform.position, focus_z);

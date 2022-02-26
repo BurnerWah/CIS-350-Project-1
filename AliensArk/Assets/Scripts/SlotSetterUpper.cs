@@ -3,7 +3,6 @@
  * Project1
  * At scene load, places aliens into slots they are near
  */
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

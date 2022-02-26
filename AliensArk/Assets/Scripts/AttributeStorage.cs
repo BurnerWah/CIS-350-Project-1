@@ -15,6 +15,14 @@ using UnityEngine;
 public class AttributeStorage
 {
     /// <summary>
+    /// Enumeration of the attribute types that this class provides.
+    /// </summary>
+    public enum Types
+    {
+        Atmosphere, Terrain, Temperature, Resource,
+    }
+
+    /// <summary>
     /// Contains possible atmospheres
     /// </summary>
     public enum Atmosphere
