@@ -28,17 +28,18 @@ public class Slot : MonoBehaviour
 
     bool locked; // access with IsLocked()
     int turnLocked, lockTime = 5;
-    public string _Terrain;
-    public string Terrain => _Terrain;
+    public string SlotTerrain;
+    private AttributeStorage.Terrain _terrain;
+    public AttributeStorage.Terrain Terrain => _terrain;
 
-    public string _Temp;
-    public string Temp => _Temp;
+    public string SlotTemp;
+    private AttributeStorage.Temperature _temp;
+    public AttributeStorage.Temperature Temp => _temp;
 
     // Private variables
     private Color hoverDragColor;
     private Color hoverNormalColor;
     private Color hideOldColor;
-
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +49,10 @@ public class Slot : MonoBehaviour
         turnManager = TurnManager.GetTurnManager();
         turnManager.TurnEvent.AddListener(NextTurn);
 
-        if(isPlanet)
+        _terrain = AttributeStorage.ParseTerrain(SlotTerrain);
+        _temp = AttributeStorage.ParseTemperature(SlotTemp);
+
+        if (isPlanet)
         {
             // Popup
             popup = GetComponentInChildren<Popup>();
@@ -213,15 +217,4 @@ public class Slot : MonoBehaviour
             txt_lockedTurnsLeft.text = "";
         }
     }
-
-    //public string GetPlanetTerrain()
-    //{
-    //    return gameObject.GetComponent<Planet>().GetTerrain();
-    //}
-
-    //public string GetPlanetTemp()
-    //{
-    //    return gameObject.GetComponent<Planet>().GetTemp();
-    //}
-
 }

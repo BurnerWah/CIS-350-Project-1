@@ -129,6 +129,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.2000122
       objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTerrain
+      value: rocky
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTemp
+      value: cold
+      objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -292,6 +302,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 1.2000122
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTerrain
+      value: rocky
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTemp
+      value: hot
       objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
@@ -682,6 +702,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 1.2000122
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: _Terrain
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: _Temp
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTerrain
+      value: soil
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTemp
+      value: hot
       objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
@@ -1405,6 +1445,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 192769912}
     m_Modifications:
+    - target: {fileID: 2387615903679881342, guid: d1a59ac0798ccf04788e963da168b2f8,
+        type: 3}
+      propertyPath: SlotTerrain
+      value: ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387615903679881342, guid: d1a59ac0798ccf04788e963da168b2f8,
+        type: 3}
+      propertyPath: SlotTemp
+      value: ship
+      objectReference: {fileID: 0}
     - target: {fileID: 8082329933114897057, guid: d1a59ac0798ccf04788e963da168b2f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2229,6 +2279,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 192769912}
     m_Modifications:
+    - target: {fileID: 2387615903679881342, guid: d1a59ac0798ccf04788e963da168b2f8,
+        type: 3}
+      propertyPath: SlotTerrain
+      value: ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387615903679881342, guid: d1a59ac0798ccf04788e963da168b2f8,
+        type: 3}
+      propertyPath: SlotTemp
+      value: ship
+      objectReference: {fileID: 0}
     - target: {fileID: 8082329933114897057, guid: d1a59ac0798ccf04788e963da168b2f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2456,6 +2516,16 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTerrain
+      value: ocean
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTemp
+      value: warm
+      objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -2626,6 +2696,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 1.2000122
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTerrain
+      value: soil
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTemp
+      value: warm
       objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
@@ -3190,6 +3270,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.2000122
       objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTerrain
+      value: soil
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960405375921211199, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: SlotTemp
+      value: warm
+      objectReference: {fileID: 0}
     - target: {fileID: 2985084327101208724, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -3592,6 +3682,16 @@ PrefabInstance:
       propertyPath: alien
       value: 
       objectReference: {fileID: 112711563}
+    - target: {fileID: 2387615903679881342, guid: d1a59ac0798ccf04788e963da168b2f8,
+        type: 3}
+      propertyPath: SlotTerrain
+      value: ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387615903679881342, guid: d1a59ac0798ccf04788e963da168b2f8,
+        type: 3}
+      propertyPath: SlotTemp
+      value: ship
+      objectReference: {fileID: 0}
     - target: {fileID: 8082329933114897057, guid: d1a59ac0798ccf04788e963da168b2f8,
         type: 3}
       propertyPath: m_LocalPosition.x

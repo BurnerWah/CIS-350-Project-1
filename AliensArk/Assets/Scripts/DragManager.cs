@@ -69,7 +69,7 @@ public class DragManager : MonoBehaviour
     // Can be indirectly called by planet/slots via TryPlace(), or by this DragManager itself when setting the initial slots of aliens
     public void Place(Alien alien, Slot slot)
     {
-        Debug.Log($"DragManager: Placing {alien.SpeciesName} with {alien.GetAlienTerrain()}, {alien.GetAlienAtmo()}, and {alien.GetAlienResource()} into {slot.name}");
+        Debug.Log($"DragManager: Placing {alien.SpeciesName} with {alien.Terrain}, {alien.Atmosphere}, and {alien.Resource} into {slot.name}");
         alien.transform.position = new Vector3(slot.transform.position.x, slot.transform.position.y, -1); // Place in center of planet/slot
 
         slot.alien = alien;
@@ -101,15 +101,17 @@ public class DragManager : MonoBehaviour
 
     public bool IsCompatible(Alien alien, Slot slot)
     {
-
-        if (alien.Terrain == slot.Terrain || alien.Temp == slot.Temp)
+        if (alien.Terrain == slot.Terrain || alien.Temperature == slot.Temp)
         {
             return true;
         }
-        else if (slot.Terrain == "Ship" && slot.Temp == "Ship")
+        else if (slot.Terrain == AttributeStorage.Terrain.Ship && slot.Temp == AttributeStorage.Temperature.Ship)
         {
             return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
     }
 }
