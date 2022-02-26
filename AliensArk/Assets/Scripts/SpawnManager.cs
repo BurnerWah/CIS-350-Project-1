@@ -29,9 +29,12 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    private int totalAliensSpawned;
+
     // Start is called before the first frame update
     void Start()
     {
+        totalAliensSpawned = 0;
         turnsSinceLastSpawn = 0;
         TM = TurnManager.GetTurnManager();
         TM.TurnEvent.AddListener(SpawnAlien);
@@ -45,6 +48,9 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnAlien()
     {
+        // Immedeately short-circuit if we aren't supposed to spawn any more aliens
+        if (totalAliensSpawned >= maxAliensToSpawn) return;
+
         // This is using LINQ, which is more or less SQL for C#
         // I don't know why it's a thing but eh it works.
         var viableSlots =
@@ -64,6 +70,7 @@ public class SpawnManager : MonoBehaviour
             var alienC = alien.GetComponent<Alien>();
             slotC.alien = alienC;
             alienC.slot = slotC;
+            totalAliensSpawned++;
         }
     }
 }
