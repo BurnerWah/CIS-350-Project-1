@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Planet : MonoBehaviour
 {
@@ -17,6 +18,13 @@ public class Planet : MonoBehaviour
     //{
     //    return Temp;
     //}
+
+    public List<Image> icons;
+    public Sprite terrain;
+    public Sprite temp;
+    public Sprite atmo;
+    public Sprite resource;
+
 
     void Start()
     {
