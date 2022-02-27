@@ -1,4 +1,5 @@
 {
     "git.enableCommitSigning": false,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "FSharp.suggestGitignore": false
 }
