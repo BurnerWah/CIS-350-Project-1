@@ -24,6 +24,9 @@ public class Alien : MonoBehaviour
     private AttributeStorage.Atmosphere atmosphere;
     public AttributeStorage.Atmosphere Atmosphere => atmosphere;
 
+    private int health;
+    public int Health => health;
+
     public Slot slot;
 
     //Just a QOL thing, Give each species a randomly generated name.
@@ -44,6 +47,7 @@ public class Alien : MonoBehaviour
         temperature = AttributeStorage.Shuffle<AttributeStorage.Temperature>(AttributeStorage.PlanetTemps).First();
         resource = AttributeStorage.Shuffle<AttributeStorage.Resource>(AttributeStorage.Resources).First();
         atmosphere = AttributeStorage.Shuffle<AttributeStorage.Atmosphere>(AttributeStorage.Atmospheres).First();
+        health = 5;
     }
 
     // Update is called once per frame
@@ -54,7 +58,14 @@ public class Alien : MonoBehaviour
 
     void UpdateHealth()
     {
-        // TODO: Update health based on things like current conditions
+        if (slot.Terrain != Terrain && slot.Temp != Temperature)
+        {
+            health--;
+        }
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnDestroy()
