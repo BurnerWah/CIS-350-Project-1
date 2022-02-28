@@ -778,7 +778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnsBetweenSpawns: 1
   turnsBeforeFirstSpawn: 1
-  maxAliensToSpawn: 4
+  maxAliensToSpawn: 3
   ailenPrefab: {fileID: 423865598}
 --- !u!4 &162405248
 Transform:
@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverText: {fileID: 2063958283}
-  turnsUntilWin: 20
+  turnsUntilWin: 15
   aliensDestroyed: 0
 --- !u!1 &337912915
 GameObject:
@@ -5137,7 +5137,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: You have 20 moves to rearrange aliens. If aliens are unhappy, they will
+  m_Text: You have 15 moves to rearrange aliens. If aliens are unhappy, they will
     die and you will lose.
 --- !u!222 &1573798797
 CanvasRenderer:
