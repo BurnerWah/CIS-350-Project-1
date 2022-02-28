@@ -41,6 +41,8 @@ public class Slot : MonoBehaviour
     private Color hoverNormalColor;
     private Color hideOldColor;
 
+    private FeedbackUI feedbackUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +78,8 @@ public class Slot : MonoBehaviour
         hideOldColor = hide.color;
         hide.color = Color.clear;
 
+        feedbackUI = GameObject.Find("/FeedbackUIManager").GetComponent<FeedbackUI>();
+
         // Start hidden or not
         if (hiddenAtStart)
         {
@@ -99,6 +103,10 @@ public class Slot : MonoBehaviour
     // When mouse enters the hitbox
     public void OnMouseEnter()
     {
+        if (alien != null)
+        {
+            feedbackUI.UpdateFeedbackDisplay(alien);
+        }
         if (!hidden)
         {
             // Display the resource popup
@@ -114,6 +122,10 @@ public class Slot : MonoBehaviour
     // When mouse exits the hitbox
     public void OnMouseExit()
     {
+        if (alien != null)
+        {
+            feedbackUI.ResetFeedbackDisplay();
+        }
         if (!hidden)
         {
             // Hide the resource popup

@@ -31,7 +31,15 @@ public class Alien : MonoBehaviour
     private int happiness;
     public int Happiness => happiness;
 
-    public Slot slot;
+    private Slot slot;
+    public Slot Slot
+    {
+        get => slot; set
+        {
+            slot = value;
+            UpdateHappiness(); // small assurance that happiness is updated
+        }
+    }
 
     //Just a QOL thing, Give each species a randomly generated name.
     private string species;
@@ -52,6 +60,7 @@ public class Alien : MonoBehaviour
         resource = AttributeStorage.Shuffle<AttributeStorage.Resource>(AttributeStorage.Resources).First();
         atmosphere = AttributeStorage.Shuffle<AttributeStorage.Atmosphere>(AttributeStorage.Atmospheres).First();
         health = 5;
+        happiness = MAX_HAPPINESS;
     }
 
     // Update is called once per frame
@@ -67,23 +76,22 @@ public class Alien : MonoBehaviour
     /// When the alien on its preffered temperature, happiness is increased by 2;
     /// TODO: When the alien on its preffered atmosphere, happiness is increased by 2;
     /// When the alien detects itself as being on the ship, its minimum happiness should be 3.
-
     void UpdateHappiness()
     {
         int newHappiness = 0;
-        if (slot.Terrain == Terrain)
+        if (Slot?.Terrain == Terrain)
         {
             newHappiness += 2;
         }
-        else if (slot.Terrain == AttributeStorage.Terrain.Ship)
+        else if (Slot?.Terrain == AttributeStorage.Terrain.Ship)
         {
             newHappiness += 1;
         }
-        if (slot.Temp == Temperature)
+        if (Slot?.Temp == Temperature)
         {
             newHappiness += 2;
         }
-        else if (slot.Temp == AttributeStorage.Temperature.Ship)
+        else if (Slot?.Temp == AttributeStorage.Temperature.Ship)
         {
             newHappiness += 1;
         }
@@ -95,6 +103,7 @@ public class Alien : MonoBehaviour
     void UpdateHealth()
     {
         UpdateHappiness();
+        Debug.Log($"{species} happiness: {happiness}");
         if (happiness < 3)
         {
             health--;

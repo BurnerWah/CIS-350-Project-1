@@ -69,7 +69,7 @@ public class SpawnManager : MonoBehaviour
             var slotC = slot.GetComponent<Slot>();
             var alienC = alien.GetComponent<Alien>();
             slotC.alien = alienC;
-            alienC.slot = slotC;
+            alienC.Slot = slotC;
             totalAliensSpawned++;
         }
     }

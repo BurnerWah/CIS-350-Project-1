@@ -72,7 +72,7 @@ public class DragManager : MonoBehaviour
         alien.transform.position = new Vector3(slot.transform.position.x, slot.transform.position.y, -1); // Place in center of planet/slot
 
         slot.alien = alien;
-        alien.slot = slot;
+        alien.Slot = slot;
     }
 
     // Start is called before the first frame update
