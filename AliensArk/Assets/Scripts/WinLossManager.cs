@@ -23,7 +23,7 @@ public class WinLossManager : MonoBehaviour
     {
         var gameOver = false;
         var won = false;
-        if (aliensDestroyed >= spawnManager.maxAliensToSpawn + 1)
+        if (aliensDestroyed >= spawnManager.maxAliensToSpawn - 1)
         {
             gameOver = true;
             won = false;
