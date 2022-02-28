@@ -129,11 +129,11 @@ public class Popup : MonoBehaviour
         // Spawn the appropriate icons as children of this Popup
         foreach (string resource in resources.Split(','))
         {
-            print($"{transform.parent.name}: Trying to get {resource} icon...");
+            //print($"{transform.parent.name}: Trying to get {resource} icon...");
             ResourceIcon icon;
             if (spriteManager.Icons.TryGetValue(resource, out icon))
             {
-                print($"{transform.parent.name}: Creating icon: {icon.name}");
+                //print($"{transform.parent.name}: Creating icon: {icon.name}");
                 Instantiate(icon, transform);
             }
         }

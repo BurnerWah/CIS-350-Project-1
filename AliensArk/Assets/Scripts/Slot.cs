@@ -175,7 +175,7 @@ public class Slot : MonoBehaviour
     // Make the planet unavailable. Probably only used when starting up the scene
     public void Hide()
     {
-        if (!hidden & isPlanet)
+        if (!hidden && isPlanet)
         {
             hidden = true;
             hide.color = hideOldColor;
@@ -185,7 +185,7 @@ public class Slot : MonoBehaviour
     // Show/discover the planet
     public void Discover()
     {
-        if (hidden & isPlanet)
+        if (hidden && isPlanet)
         {
             hidden = false;
             hide.color = Color.clear;

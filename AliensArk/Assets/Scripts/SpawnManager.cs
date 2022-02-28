@@ -19,6 +19,8 @@ public class SpawnManager : MonoBehaviour
     private TurnManager TM;
     private SlotManager SM;
 
+    int curr_spawn_index = 0;
+
     // This counter should automatically be reset as it's updeated
     private int _turnsSinceLastSpawn;
     private int turnsSinceLastSpawn
@@ -48,7 +50,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnAlien()
     {
-        // Immedeately short-circuit if we aren't supposed to spawn any more aliens
+        // Immediately short-circuit if we aren't supposed to spawn any more aliens
         if (totalAliensSpawned >= maxAliensToSpawn) return;
 
         // This is using LINQ, which is more or less SQL for C#
@@ -63,7 +65,7 @@ public class SpawnManager : MonoBehaviour
             && turnsSinceLastSpawn++ == 0
             && viableSlots.Count() > 0)
         {
-            var slot = viableSlots.First();
+            var slot = viableSlots.ElementAt(curr_spawn_index++);
             var position = new Vector3(slot.transform.position.x, slot.transform.position.y, -1);
             var alien = Instantiate(ailenPrefab, position, ailenPrefab.transform.rotation);
             var slotC = slot.GetComponent<Slot>();

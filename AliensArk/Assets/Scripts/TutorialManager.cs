@@ -17,66 +17,83 @@ public class TutorialManager : MonoBehaviour
     public GameObject[] planets, shipSlots;
     public GameObject progressBar, turnCounter, evilShip;
     SpriteRenderer filterSR;
+    SpawnManager spawnManager;
 
     bool focusing = false;
     public bool IsFocusing => focusing;
 
     float focus_z = -10f; // When focusing on objects, we put them at the very front so they are on top. This is that position
-    List<GameObject> focused_graphics;
-    List<GameObject> focused_tempGraphics;
+    List<GameObject> focused_graphics = new List<GameObject>();
+    List<GameObject> focused_tempGraphics = new List<GameObject>();
 
     int part = -1; // Current section of the tutorial
     // Dictionary<int, List<GameObject>> _graphics; // Populated in start()
-    List<GameObject>[] graphics = new List<GameObject>[10]; // Preexisting objects that are focused on in the tutorial
-    List<GameObject>[] tempGraphics = new List<GameObject>[10]; // Tutorial-only objects (like glows) that are turned on or off in the tutorial
+    List<GameObject>[] graphics = new List<GameObject>[6]; // Preexisting objects that are focused on in the tutorial
+    List<GameObject>[] tempGraphics = new List<GameObject>[6]; // Tutorial-only objects (like glows) that are turned on or off in the tutorial
     readonly string tempGraphicsPrefix = "Tut_";
-    Regex tempGraphicsReg = new Regex(@"^Tut_(\d)", RegexOptions.Compiled);
+    //Regex tempGraphicsReg = new Regex(@"^Tut_(\d)", RegexOptions.Compiled);
+
+    float curr_clickCooldown = 0, clickCooldown = 1;
 
     void Start()
     {
+        for(int i = 0; i < 6; i++)
+        {
+            graphics[i] = new List<GameObject>();
+            tempGraphics[i] = new List<GameObject>();
+        }
+
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         filterSR = filter.GetComponent<SpriteRenderer>();
         filterSR.color = TranslucentColor(0);
 
         // Get any tutorial-only graphics under TutorialManager
         foreach (SpriteRenderer child in GetComponentsInChildren<SpriteRenderer>())
         {
+            // Commented this during debugging, will uncomment after playtest
+            /*
             if (tempGraphicsReg.IsMatch(child.name))
             {
                 tempGraphics[int.Parse(tempGraphicsReg.Match(child.name).Groups[0].Value)].Add(child.gameObject);
                 child.gameObject.SetActive(false);
             }
-            // If the child is named "Tut_x..." then add it to the graphics dictionary
-            // if (child.name.Substring(0, graphicsPrefix.Length) == graphicsPrefix)
-            // {
-            //     int graphicPart;
-            //     if (int.TryParse(child.name.Substring(graphicsPrefix.Length, graphicsPrefix.Length + 1), out graphicPart))
-            //     {
-            //         graphics[graphicPart].Add(child.gameObject);
-            //     }
-            // }
+            */
+            // If the child is named "Tut_x..." then add it to the graphics list
+            if (child.name.Substring(0, tempGraphicsPrefix.Length) == tempGraphicsPrefix)
+            {
+                int graphicPart;
+                string graphicPart_str = child.name.Substring(tempGraphicsPrefix.Length, 1);
+                if (int.TryParse(graphicPart_str, out graphicPart))
+                {
+                    tempGraphics[graphicPart].Add(child.gameObject);
+                }
+            }
         }
         // Get any objects named correctly under the Canvas
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < canvas.transform.childCount; i++)
         {
-            GameObject child = transform.GetChild(i).gameObject;
+            GameObject child = canvas.transform.GetChild(i).gameObject;
+            print($"checking child {child.name}");
+            /*
             if (tempGraphicsReg.IsMatch(child.name))
             {
                 graphics[int.Parse(tempGraphicsReg.Match(child.name).Groups[0].Value)].Add(child);
+                print("Added tempGraphic");
             }
+            */
             // If the child is named "Tut_x..." then add it to the graphics dictionary
-            // if (child.name.Substring(0, graphicsPrefix.Length) == graphicsPrefix)
-            // {
-            //     int graphicPart;
-            //     if (int.TryParse(child.name.Substring(graphicsPrefix.Length, graphicsPrefix.Length + 1), out graphicPart))
-            //     {
-            //         graphics[graphicPart].Add(child);
-            //     }
-            // }
+            if (child.name.Substring(0, tempGraphicsPrefix.Length) == tempGraphicsPrefix)
+            {
+                int graphicPart;
+                if (int.TryParse(child.name.Substring(tempGraphicsPrefix.Length, 1), out graphicPart))
+                {
+                    tempGraphics[graphicPart].Add(child);
+                }
+            }
         }
 
         // Deciding which pre-existing objects are active during which tutorial part.
         //(Any temporary tutorial-only object can be named "Tut_X" to auto assign it to part X)
-
         // Tutorial Part 0: Highlighting ship slots
         foreach (GameObject shipSlot in shipSlots)
         {
@@ -85,8 +102,8 @@ public class TutorialManager : MonoBehaviour
         // Tutorial Part 1: Move the starting alien to the earth-like planet
         graphics[1].Add(startingAlien.gameObject);
         graphics[1].Add(planets[2]);
-        graphics[1].Add(startingAlien.gameObject);
         // Tutorial Part 2: That's not a good fit for the alien. Move the alien to the other highlighted planet
+        graphics[2].Add(startingAlien.gameObject);
         graphics[2].Add(planets[2]);
         graphics[2].Add(planets[4]);
         graphics[2].Add(progressBar);
@@ -99,10 +116,24 @@ public class TutorialManager : MonoBehaviour
         graphics[5].Add(turnCounter);
         graphics[5].Add(evilShip);
 
+        ///// Start the tutorial
+
+        // Turning off alien spawner temporarily
+        spawnManager.enabled = false;
+
+        // Hide all temp graphics to start
+        foreach(List<GameObject> tempGraphicList in tempGraphics)
+        {
+            foreach(GameObject tempGraphic in tempGraphicList)
+            {
+                tempGraphic.SetActive(false);
+            }
+        }
+
         // Hide all planets to start
         foreach (GameObject planet in planets)
         {
-            planet.GetComponent<Slot>().Hide();
+            //planet.GetComponent<Slot>().Hide();
         }
 
         // Tutorial Part 0: Highlighting ship slots
@@ -112,6 +143,10 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
+        curr_clickCooldown -= Time.deltaTime;
+
+        bool alienMoved = false;
+        GameObject prevPlanet = gameObject; // dummy init
         switch (part)
         {
             case 0:
@@ -123,14 +158,22 @@ public class TutorialManager : MonoBehaviour
                     StartFocusingOn(1);
                     planets[2].GetComponent<Slot>().Discover();
                     part = 1;
+                    curr_clickCooldown = clickCooldown;
                 }
                 break;
             case 1:
-                // Tutorial Part 1: Move the starting alien to the earth-like planet
-
-                // If an alien has been moved to planet 2, this part is complete
-                // Move the alien to continue
-                if (planets[2].GetComponent<Slot>().alien == startingAlien)
+                // Tutorial Part 1: Move the starting alien
+                // Move the alien anywhere to continue
+                
+                foreach (GameObject planet in planets)
+                {
+                    if (planet.GetComponent<Slot>().alien == startingAlien){
+                        alienMoved = true;
+                        prevPlanet = planet;
+                        break;
+                    }
+                }
+                if (alienMoved)
                 {
                     StopFocusing();
                     StartFocusingOn(2);
@@ -139,9 +182,17 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case 2:
-                // Tutorial Part 2: That's not a good fit for the alien. Move the alien to the other highlighted planet
-                // Move the alien to continue
-                if (planets[4].GetComponent<Slot>().alien == startingAlien)
+                // Tutorial Part 2: Now try to find another spot
+                // Move the alien anywhere to continue
+                alienMoved = false;
+                foreach (GameObject planet in planets)
+                {
+                    if (planet.GetComponent<Slot>().alien == startingAlien && planet != prevPlanet)
+                    {
+                        alienMoved = true;
+                    }
+                }
+                if (alienMoved)
                 {
                     StopFocusing();
                     StartFocusingOn(3);
@@ -151,21 +202,40 @@ public class TutorialManager : MonoBehaviour
             case 3:
                 // Tutorial Part 3: The alien is happy. See on the progress bar that one of the lights is lit up
                 // Click to continue
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && curr_clickCooldown <= 0)
                 {
                     StopFocusing();
                     StartFocusingOn(4);
                     part = 4;
+                    curr_clickCooldown = clickCooldown;
                 }
                 break;
             case 4:
                 // Tutorial Part 4: See the turn counter
                 // Click to continue
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && curr_clickCooldown <= 0)
                 {
                     StopFocusing();
                     StartFocusingOn(5);
                     part = 5;
+                    curr_clickCooldown = clickCooldown;
+                }
+                break;
+            case 5:
+                // Evil ship
+                if (Input.GetMouseButtonDown(0) && curr_clickCooldown <= 0)
+                {
+                    StopFocusing();
+                    part = 6;
+                    curr_clickCooldown = clickCooldown;
+                }
+                break;
+            case 6: // Done
+                spawnManager.enabled = true;
+                //TurnManager.GetTurnManager().Reset();
+                foreach(GameObject planet in planets)
+                {
+                    planet.GetComponent<Slot>().Discover();
                 }
                 break;
         }
@@ -176,7 +246,7 @@ public class TutorialManager : MonoBehaviour
     {
         StartFocusingOn(graphics[partNo], tempGraphics[partNo]);
     }
-    void StartFocusingOn(List<GameObject> graphics, List<GameObject> tempGraphics)
+    void StartFocusingOn(List<GameObject> f_graphics, List<GameObject> f_tempGraphics)
     {
         focusing = true;
 
@@ -185,17 +255,18 @@ public class TutorialManager : MonoBehaviour
 
         // Put all objects being focused on to the foreground
 
-        foreach (GameObject obj in graphics)
+        foreach (GameObject obj in f_graphics)
         {
             obj.transform.position = AddZ(obj.transform.position, focus_z);
+            focused_graphics.Add(obj);
         }
 
-        foreach (GameObject obj in tempGraphics)
+        foreach (GameObject obj in f_tempGraphics)
         {
             obj.SetActive(true);
             obj.transform.position = AddZ(obj.transform.position, focus_z);
+            focused_tempGraphics.Add(obj);
         }
-
     }
 
     void StopFocusing()
@@ -213,7 +284,7 @@ public class TutorialManager : MonoBehaviour
         for (int i = 0; i < focused_tempGraphics.Count; i++)
         {
             focused_tempGraphics[i].SetActive(false);
-            focused_tempGraphics[i].transform.position = AddZ(focused_tempGraphics[i].transform.position, -focus_z);
+            //focused_tempGraphics[i].transform.position = AddZ(focused_tempGraphics[i].transform.position, -focus_z);
         }
 
         // Reset storage

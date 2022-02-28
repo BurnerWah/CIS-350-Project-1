@@ -131,7 +131,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2182890924457106365}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -413,6 +413,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91db2a77f0daf4641883718b04348428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icons: []
+  terrain: {fileID: 0}
+  temp: {fileID: 0}
+  atmo: {fileID: 0}
+  resource: {fileID: 0}
 --- !u!114 &2960405375921211199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,9 +431,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alien: {fileID: 0}
+  isPlanet: 0
   hiddenAtStart: 0
-  _Terrain: 
-  _Temp: 
+  SlotTerrain: 
+  SlotTemp: 
 --- !u!58 &2278446528484904970
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -452,10 +458,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6057092095659265313}
     m_Modifications:
+    - target: {fileID: 1499457048211763547, guid: 8d2e094c80f7db44a80ed4af9f8fe4e5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4118024579290222743, guid: 8d2e094c80f7db44a80ed4af9f8fe4e5,
         type: 3}
       propertyPath: m_Name
       value: PlanetPopup
+      objectReference: {fileID: 0}
+    - target: {fileID: 4118024579290222743, guid: 8d2e094c80f7db44a80ed4af9f8fe4e5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5472800358720678992, guid: 8d2e094c80f7db44a80ed4af9f8fe4e5,
         type: 3}
