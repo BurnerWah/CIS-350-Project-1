@@ -27,6 +27,10 @@ public class Alien : MonoBehaviour
     private int health;
     public int Health => health;
 
+    public static readonly int MAX_HAPPINESS = 5;
+    private int happiness;
+    public int Happiness => happiness;
+
     public Slot slot;
 
     //Just a QOL thing, Give each species a randomly generated name.
@@ -56,9 +60,42 @@ public class Alien : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Updates the happiness of the alien.
+    /// </summary>
+    /// When the alien on its preffered terrain, happiness is increased by 2;
+    /// When the alien on its preffered temperature, happiness is increased by 2;
+    /// TODO: When the alien on its preffered atmosphere, happiness is increased by 2;
+    /// When the alien detects itself as being on the ship, its minimum happiness should be 3.
+
+    void UpdateHappiness()
+    {
+        int newHappiness = 0;
+        if (slot.Terrain == Terrain)
+        {
+            newHappiness += 2;
+        }
+        else if (slot.Terrain == AttributeStorage.Terrain.Ship)
+        {
+            newHappiness += 1;
+        }
+        if (slot.Temp == Temperature)
+        {
+            newHappiness += 2;
+        }
+        else if (slot.Temp == AttributeStorage.Temperature.Ship)
+        {
+            newHappiness += 1;
+        }
+        // Because atmospheres aren't implemented yet, we'll just add 1 to happiness no matter what.
+        newHappiness += 1;
+        happiness = Mathf.Clamp(newHappiness, 0, MAX_HAPPINESS);
+    }
+
     void UpdateHealth()
     {
-        if (slot.Terrain != Terrain && slot.Temp != Temperature)
+        UpdateHappiness();
+        if (happiness < 3)
         {
             health--;
         }
