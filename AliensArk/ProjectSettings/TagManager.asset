@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Attributes
   - TurnSystem
+  - AlienAttributeFeedback
   layers:
   - Default
   - TransparentFX

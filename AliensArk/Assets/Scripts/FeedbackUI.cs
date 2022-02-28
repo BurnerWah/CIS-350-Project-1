@@ -14,6 +14,7 @@ public class FeedbackUI : MonoBehaviour
     public Sprite alienNotHappy;
     public List<Image> alienHappinessIcons;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +30,14 @@ public class FeedbackUI : MonoBehaviour
         {
             alienHappinessIcons[i].sprite = alienHappy;
         }
+        GameObject.Find("/Canvas/AlienFeedback/SpeciesName").GetComponent<Text>().text = $"Name: {alien.SpeciesName}\nTerrain: {alien.Terrain}\nTemp: {alien.Temperature}";
+        GameObject.Find("/Canvas/AlienFeedback/SpeciesName").SetActive(true);
     }
 
     public void ResetFeedbackDisplay()
     {
         alienHappinessIcons.ForEach(icon => icon.sprite = alienNotHappy);
+        GameObject.Find("/Canvas/AlienFeedback/SpeciesName").SetActive(false);
     }
 
     // Update is called once per frame

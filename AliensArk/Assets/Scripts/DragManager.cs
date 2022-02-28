@@ -46,8 +46,8 @@ public class DragManager : MonoBehaviour
         Debug.Log($"DragManager: Trying to place the dragged into {slot.name}");
         if (dragging && draggedAlien != null)
         {
-            if (IsCompatible(draggedAlien, slot))
-            {
+            //if (IsCompatible(draggedAlien, slot))
+            //{
                 Place(draggedAlien, slot);
                 if (startSlot != slot)
                 {
@@ -57,9 +57,9 @@ public class DragManager : MonoBehaviour
                 dragging = false;
                 draggedAlien = null;
                 return true;
-            }
-            dragging = false;
-            draggedAlien = null;
+           //}
+            //dragging = false;
+           // draggedAlien = null;
 
         }
         return false;
