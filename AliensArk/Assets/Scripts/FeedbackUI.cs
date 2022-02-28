@@ -1,5 +1,5 @@
 ﻿/*
- * Jaden Pleasants
+ * Jaden Pleasants, Gerard Lamoureux
  * Project 2
  * Updates feedback data in the UI.
  */
