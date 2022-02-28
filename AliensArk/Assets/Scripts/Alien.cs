@@ -93,10 +93,10 @@ public class Alien : MonoBehaviour
         }
         else if (Slot?.Temp == AttributeStorage.Temperature.Ship)
         {
-            newHappiness += 1;
+            newHappiness += 2; // change this back to 1 later
         }
         // Because atmospheres aren't implemented yet, we'll just add 1 to happiness no matter what.
-        newHappiness += 1;
+        // newHappiness += 1;
         happiness = Mathf.Clamp(newHappiness, 0, MAX_HAPPINESS);
     }
 
@@ -116,6 +116,7 @@ public class Alien : MonoBehaviour
 
     void OnDestroy()
     {
+        GameObject.Find("/WinManager").GetComponent<WinLossManager>().aliensDestroyed++;
         TM.TurnEvent.RemoveListener(UpdateHealth);
     }
 
