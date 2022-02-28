@@ -1818,6 +1818,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5597916209108736257}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &423865599 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 390654547692422263, guid: 749ee15d0044449428e0f8a48ac6b6db,
+    type: 3}
+  m_PrefabInstance: {fileID: 5597916209108736257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &486124127
 GameObject:
   m_ObjectHideFlags: 0
@@ -2100,6 +2106,7 @@ RectTransform:
   - {fileID: 381081665}
   - {fileID: 486124128}
   - {fileID: 2063958281}
+  - {fileID: 1584990383}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2842,6 +2849,83 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3502ade00090ff24abd8e3fb10e19f85, type: 3}
+--- !u!1 &959820785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 959820786}
+  - component: {fileID: 959820788}
+  - component: {fileID: 959820787}
+  m_Layer: 5
+  m_Name: Alien Name
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &959820786
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959820785}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1584990383}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -49, y: 35}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &959820787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959820785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Species Name
+--- !u!222 &959820788
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959820785}
+  m_CullTransparentMesh: 0
 --- !u!1 &963389778
 GameObject:
   m_ObjectHideFlags: 0
@@ -3744,6 +3828,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5730814669605666054, guid: 845ddf56de0ea5e49b2d2c91ec574235,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6057092095659265312, guid: 845ddf56de0ea5e49b2d2c91ec574235,
         type: 3}
@@ -4814,6 +4903,79 @@ Transform:
   m_Father: {fileID: 258960436}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1584990382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1584990383}
+  - component: {fileID: 1584990385}
+  - component: {fileID: 1584990384}
+  m_Layer: 5
+  m_Name: Alien Facts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1584990383
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584990382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 959820786}
+  m_Father: {fileID: 542844872}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -235.2, y: -156}
+  m_SizeDelta: {x: 279.39868, y: 113.19455}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1584990384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584990382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6666667, g: 0.6666667, b: 0.6666667, a: 0.62352943}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &1584990385
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584990382}
+  m_CullTransparentMesh: 0
 --- !u!1 &1623855891
 GameObject:
   m_ObjectHideFlags: 0
@@ -6174,6 +6336,65 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alien
       objectReference: {fileID: 0}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: AlienSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 63ce793964e73384383ba6dd723ffbce,
+        type: 3}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: AlienSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: c4d8d5ae4498483408a23e47bff1eca8,
+        type: 3}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: AlienSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 445711f8a27b0a74bb170870012d7d68,
+        type: 3}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: AlienSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 82d0b902a7120a549afce1f5662aa6fe,
+        type: 3}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: AlienSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0edcb7d38bbab8a48a50a3d44c443dd0,
+        type: 3}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: AlienSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 60268c4b9ab78904cac3ffa4c4bafd9d,
+        type: 3}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: AlienSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300000, guid: febdb23b05445984dba5e9a346aba09b,
+        type: 3}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: AlienSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: 19326481e8b859543aa5e598aa096478,
+        type: 3}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: AlienSprites.Array.data[8]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2fddf2df0ec8f2043894169157aa20c7,
+        type: 3}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 423865599}
     - target: {fileID: 8974810631821240353, guid: 749ee15d0044449428e0f8a48ac6b6db,
         type: 3}
       propertyPath: m_LocalRotation.x

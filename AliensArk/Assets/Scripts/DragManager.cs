@@ -52,10 +52,10 @@ public class DragManager : MonoBehaviour
                 if (startSlot != slot)
                 {
                     startSlot.alien = null;
+                    turnManager.EndTurn();
                 }
                 dragging = false;
                 draggedAlien = null;
-                turnManager.EndTurn();
                 return true;
             }
             dragging = false;

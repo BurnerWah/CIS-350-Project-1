@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Alien : MonoBehaviour
 {
@@ -45,6 +46,10 @@ public class Alien : MonoBehaviour
     private string species;
     public string SpeciesName => species;
 
+    public List<Sprite> AlienSprites;
+
+    public SpriteRenderer spriteRenderer;
+
     private TurnManager TM;
 
     // Start is called before the first frame update
@@ -60,7 +65,8 @@ public class Alien : MonoBehaviour
         resource = AttributeStorage.Shuffle<AttributeStorage.Resource>(AttributeStorage.Resources).First();
         atmosphere = AttributeStorage.Shuffle<AttributeStorage.Atmosphere>(AttributeStorage.Atmospheres).First();
         health = 5;
-        happiness = MAX_HAPPINESS;
+        spriteRenderer.sprite = AlienSprites[Random.Range(0, AlienSprites.Count)];
+        UpdateHappiness();
     }
 
     // Update is called once per frame
