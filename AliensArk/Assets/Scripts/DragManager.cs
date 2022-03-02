@@ -46,8 +46,8 @@ public class DragManager : MonoBehaviour
         Debug.Log($"DragManager: Trying to place the dragged into {slot.name}");
         if (dragging && draggedAlien != null)
         {
-            //if (IsCompatible(draggedAlien, slot))
-            //{
+            if (slot.alien == null)
+            {
                 Place(draggedAlien, slot);
                 if (startSlot != slot)
                 {
@@ -57,9 +57,9 @@ public class DragManager : MonoBehaviour
                 dragging = false;
                 draggedAlien = null;
                 return true;
-           //}
-            //dragging = false;
-           // draggedAlien = null;
+           }
+           dragging = false;
+           draggedAlien = null;
 
         }
         return false;
@@ -97,7 +97,7 @@ public class DragManager : MonoBehaviour
         }
 
     }
-
+    //unused for playtest also feel we shouldn't use regardless - Gerard
     public bool IsCompatible(Alien alien, Slot slot)
     {
         if (alien.Terrain == slot.Terrain || alien.Temperature == slot.Temp)
