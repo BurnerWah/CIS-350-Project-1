@@ -87,7 +87,7 @@ public class Alien : MonoBehaviour
         int newHappiness = 0;
         if (Slot?.Terrain == Terrain)
         {
-            newHappiness += 2;
+            newHappiness += 1;
         }
         else if (Slot?.Terrain == AttributeStorage.Terrain.Ship)
         {
@@ -95,11 +95,19 @@ public class Alien : MonoBehaviour
         }
         if (Slot?.Temp == Temperature)
         {
-            newHappiness += 2;
+            newHappiness += 1;
         }
         else if (Slot?.Temp == AttributeStorage.Temperature.Ship)
         {
             newHappiness += 2; // change this back to 1 later
+        }
+        else if(Slot?.Atmosphere == Atmosphere)
+        {
+            newHappiness += 2;
+        }
+        else if(Slot?.Resource == Resource)
+        {
+            newHappiness += 1;
         }
         // Because atmospheres aren't implemented yet, we'll just add 1 to happiness no matter what.
         // newHappiness += 1;

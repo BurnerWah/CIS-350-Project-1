@@ -37,6 +37,14 @@ public class Slot : MonoBehaviour
     private AttributeStorage.Temperature _temp;
     public AttributeStorage.Temperature Temp => _temp;
 
+    public string SlotAtmosphere;
+    private AttributeStorage.Atmosphere _atmosphere;
+    public AttributeStorage.Atmosphere Atmosphere => _atmosphere;
+
+    public string SlotResource;
+    private AttributeStorage.Resource _resource;
+    public AttributeStorage.Resource Resource => _resource;
+
     // Private variables
     private Color hoverDragColor;
     private Color hoverNormalColor;
@@ -54,13 +62,26 @@ public class Slot : MonoBehaviour
 
         _terrain = AttributeStorage.ParseTerrain(SlotTerrain);
         _temp = AttributeStorage.ParseTemperature(SlotTemp);
+        _atmosphere = AttributeStorage.ParseAtmosphere(SlotAtmosphere);
+        _resource = AttributeStorage.ParseResource(SlotResource);
 
         if (isPlanet)
         {
             _terrain = AttributeStorage.Shuffle<AttributeStorage.Terrain>(AttributeStorage.PlanetTerrains).First();
             _temp = AttributeStorage.Shuffle<AttributeStorage.Temperature>(AttributeStorage.PlanetTemps).First();
-            // Popup
-            popup = GetComponentInChildren<Popup>();
+            _atmosphere = AttributeStorage.Shuffle<AttributeStorage.Atmosphere>(AttributeStorage.Atmospheres).First();
+            _resource = AttributeStorage.Shuffle<AttributeStorage.Resource>(AttributeStorage.Resources).First();
+
+            this.transform.Find("Canvas/Terrain").gameObject.GetComponent<ResourceIcon>().UpdateIcon(_terrain.ToString());
+            this.transform.Find("Canvas/Temp").gameObject.GetComponent<ResourceIcon>().UpdateIcon(_temp.ToString());
+            if(_atmosphere == AttributeStorage.Atmosphere.None)
+                this.transform.Find("Canvas/Atmosphere").gameObject.GetComponent<ResourceIcon>().UpdateIcon("noair");
+            else
+                this.transform.Find("Canvas/Atmosphere").gameObject.GetComponent<ResourceIcon>().UpdateIcon(_atmosphere.ToString());
+            if (_resource == AttributeStorage.Resource.None)
+                this.transform.Find("Canvas/Resource").gameObject.GetComponent<ResourceIcon>().UpdateIcon("noresource");
+            else
+                this.transform.Find("Canvas/Resource").gameObject.GetComponent<ResourceIcon>().UpdateIcon(_resource.ToString());
             // Locking
             txt_lockedTurnsLeft = GetComponentInChildren<Text>();
             txt_lockedTurnsLeft.text = "";

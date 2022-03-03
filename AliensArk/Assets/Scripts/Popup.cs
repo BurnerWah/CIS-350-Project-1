@@ -50,7 +50,7 @@ public class Popup : MonoBehaviour
         spriteRenderer.enabled = false;
 
         popup_width = spriteRenderer.bounds.size.x - popup_margin;
-        UpdateResourceDisplay();
+        //UpdateResourceDisplay();
 
         currentState = State.STAYING_DOWN;
     }
@@ -123,7 +123,7 @@ public class Popup : MonoBehaviour
         }
     }
 
-
+    /*
     void UpdateResourceDisplay()
     {
         // Spawn the appropriate icons as children of this Popup
@@ -144,5 +144,5 @@ public class Popup : MonoBehaviour
             icon.transform.localPosition = new Vector3(curr_x, 0, icon_z);
             curr_x += icon_width;
         }
-    }
+    }*/
 }

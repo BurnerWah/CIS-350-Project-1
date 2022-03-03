@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/*
+ * Jaden Pleasants, Gerard Lamoureux
+ * Project 2
+ * Defines Sprites for Random Planet Icons
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,14 +17,14 @@ public class SpriteManager : MonoBehaviour
      * Iron/Lumber/NoResource
      */
     // Plug the sprites into these fields
-    public ResourceIcon Oxygen, Nitrogen, NoAir, Soil, Ocean, Rocky, Hot, Warm, Cold, Iron, Lumber, NoResource;
-    public Dictionary<string, ResourceIcon> Icons;
+    public Sprite Oxygen, Nitrogen, NoAir, Soil, Ocean, Rocky, Hot, Warm, Cold, Iron, Lumber, NoResource;
+    public Dictionary<string, Sprite> Icons;
     // Maybe there could be a similar set of Sprites stored here for planets
 
     // Awake is called before Start
     void Awake()
     {
-        Icons = new Dictionary<string, ResourceIcon> {
+        Icons = new Dictionary<string, Sprite> {
             {"oxygen", Oxygen},
             {"nitrogen", Nitrogen},
             {"noair", NoAir},

@@ -1,5 +1,5 @@
 ﻿/*
- * Jaden Pleasants
+ * Jaden Pleasants, Gerard Lamoureux
  * Project 2
  * Storage structure for attribute data
  */
@@ -27,13 +27,25 @@ public class AttributeStorage
     /// </summary>
     public enum Atmosphere
     {
-        None, Oxygen, Nitrogen,
+        None, Oxygen, Nitrogen, Ship,
     }
     public static HashSet<Atmosphere> Atmospheres = new HashSet<Atmosphere> {
         Atmosphere.None,
         Atmosphere.Oxygen,
         Atmosphere.Nitrogen,
     };
+
+    public static AttributeStorage.Atmosphere ParseAtmosphere(string atmosphere)
+    {
+        switch (atmosphere.ToLower())
+        {
+            case "none": return Atmosphere.None;
+            case "oxygen": return Atmosphere.Oxygen;
+            case "nitrogen": return Atmosphere.Nitrogen;
+            case "ship": return Atmosphere.Ship;
+            default: throw new System.ArgumentException($"Unexpected input: {atmosphere}");
+        }
+    }
 
     /// <summary>
     /// Contains possible terrains
@@ -102,13 +114,25 @@ public class AttributeStorage
     /// </summary>
     public enum Resource
     {
-        None, Iron, Lumber,
+        None, Iron, Lumber, Ship
     }
     public static HashSet<Resource> Resources = new HashSet<Resource> {
         Resource.None,
         Resource.Iron,
         Resource.Lumber,
     };
+
+    public static AttributeStorage.Resource ParseResource(string resource)
+    {
+        switch (resource.ToLower())
+        {
+            case "none": return Resource.None;
+            case "iron": return Resource.Iron;
+            case "lumber": return Resource.Lumber;
+            case "ship": return Resource.Ship;
+            default: throw new System.ArgumentException($"Unexpected input: {resource}");
+        }
+    }
 
     /// <summary>
     /// Shuffles a collection
