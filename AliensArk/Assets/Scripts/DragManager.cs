@@ -52,7 +52,8 @@ public class DragManager : MonoBehaviour
                 if (startSlot != slot)
                 {
                     startSlot.alien = null;
-                    turnManager.EndTurn();
+                    if(!(slot.Terrain == AttributeStorage.Terrain.Ship && startSlot.Terrain == AttributeStorage.Terrain.Ship))
+                        turnManager.EndTurn();
                 }
                 dragging = false;
                 draggedAlien = null;

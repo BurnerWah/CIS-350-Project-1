@@ -5,6 +5,7 @@
  */
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,6 +57,8 @@ public class Slot : MonoBehaviour
 
         if (isPlanet)
         {
+            _terrain = AttributeStorage.Shuffle<AttributeStorage.Terrain>(AttributeStorage.PlanetTerrains).First();
+            _temp = AttributeStorage.Shuffle<AttributeStorage.Temperature>(AttributeStorage.PlanetTemps).First();
             // Popup
             popup = GetComponentInChildren<Popup>();
             // Locking
@@ -94,7 +97,7 @@ public class Slot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (alien != null)
+        if (alien != null && dragManager.draggedAlien != alien)
         {
             alien.transform.position = new Vector3(transform.position.x, transform.position.y, -1); // Always snap my alien to me, just in case
         }
