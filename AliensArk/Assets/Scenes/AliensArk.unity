@@ -5607,7 +5607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1513597179
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8346,6 +8346,36 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 423865599}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: planets.Array.data[0]
+      value: 
+      objectReference: {fileID: 805040875}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: planets.Array.data[1]
+      value: 
+      objectReference: {fileID: 2023838193}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: planets.Array.data[2]
+      value: 
+      objectReference: {fileID: 1078143536}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: planets.Array.data[3]
+      value: 
+      objectReference: {fileID: 138250998}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: planets.Array.data[4]
+      value: 
+      objectReference: {fileID: 1257472316}
+    - target: {fileID: 5943567070298979084, guid: 749ee15d0044449428e0f8a48ac6b6db,
+        type: 3}
+      propertyPath: planets.Array.data[5]
+      value: 
+      objectReference: {fileID: 1813479751}
     - target: {fileID: 8974810631821240353, guid: 749ee15d0044449428e0f8a48ac6b6db,
         type: 3}
       propertyPath: m_LocalRotation.x

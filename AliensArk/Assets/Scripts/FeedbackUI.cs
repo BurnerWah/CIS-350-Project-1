@@ -30,7 +30,7 @@ public class FeedbackUI : MonoBehaviour
         {
             alienHappinessIcons[i].sprite = alienHappy;
         }
-        GameObject.Find("/Canvas/AlienFeedback/SpeciesName").GetComponent<Text>().text = $"Name: {alien.SpeciesName}\nTerrain: {alien.Terrain}\nTemp: {alien.Temperature}\nAtmosphere: {alien.Atmosphere}\nResource: {alien.Resource}";
+        GameObject.Find("/Canvas/AlienFeedback/SpeciesName").GetComponent<Text>().text = $"Name: {alien.SpeciesName} Health: {alien.Health}\nTerrain: {alien.Terrain}\nTemp: {alien.Temperature}\nAtmosphere: {alien.Atmosphere}\nResource: {alien.Resource}";
         GameObject.Find("/Canvas/AlienFeedback/SpeciesName").SetActive(true);
     }
 

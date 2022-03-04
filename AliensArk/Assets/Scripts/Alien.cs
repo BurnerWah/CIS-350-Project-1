@@ -32,6 +32,8 @@ public class Alien : MonoBehaviour
     private int happiness;
     public int Happiness => happiness;
 
+    private GameObject[] planets;
+
     private Slot slot;
     public Slot Slot
     {
@@ -60,10 +62,9 @@ public class Alien : MonoBehaviour
         TM = TurnManager.GetTurnManager();
         TM.TurnEvent.AddListener(UpdateHealth);
         // Get random attributes
-        terrain = AttributeStorage.Shuffle<AttributeStorage.Terrain>(AttributeStorage.PlanetTerrains).First();
-        temperature = AttributeStorage.Shuffle<AttributeStorage.Temperature>(AttributeStorage.PlanetTemps).First();
-        resource = AttributeStorage.Shuffle<AttributeStorage.Resource>(AttributeStorage.Resources).First();
-        atmosphere = AttributeStorage.Shuffle<AttributeStorage.Atmosphere>(AttributeStorage.Atmospheres).First();
+        planets = GameObject.Find("/SlotManager").GetComponent<SlotManager>()._planetSlots;
+
+        algorithmAttributes();
         health = 5;
         spriteRenderer.sprite = AlienSprites[Random.Range(0, AlienSprites.Count)];
         UpdateHappiness();
@@ -72,7 +73,8 @@ public class Alien : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        float n = health / 5;
+        spriteRenderer.color = new Color(1, n, n);
     }
 
     /// <summary>
@@ -101,11 +103,11 @@ public class Alien : MonoBehaviour
         {
             newHappiness += 2; // change this back to 1 later
         }
-        else if(Slot?.Atmosphere == Atmosphere)
+        if(Slot?.Atmosphere == Atmosphere)
         {
             newHappiness += 2;
         }
-        else if(Slot?.Resource == Resource)
+        if(Slot?.Resource == Resource)
         {
             newHappiness += 1;
         }
@@ -149,4 +151,20 @@ public class Alien : MonoBehaviour
     private static readonly char[] Vowels = { 'a', 'e', 'i', 'o', 'u' };
     private char RandomConsonant() => Consonants[Random.Range(0, Consonants.Length)];
     private char RandomVowel() => Vowels[Random.Range(0, Vowels.Length)];
+
+    void algorithmAttributes()
+    {
+        int planetint = Random.Range(0, planets.Length);
+        int ran = Random.Range(0, 3);
+        terrain = AttributeStorage.Shuffle<AttributeStorage.Terrain>(AttributeStorage.PlanetTerrains).First();
+        temperature = AttributeStorage.Shuffle<AttributeStorage.Temperature>(AttributeStorage.PlanetTemps).First();
+        resource = AttributeStorage.Shuffle<AttributeStorage.Resource>(AttributeStorage.Resources).First();
+        if (ran == 0)
+            terrain = planets[planetint].GetComponent<Slot>().Terrain;
+        else if (ran == 1)
+            temperature = planets[planetint].GetComponent<Slot>().Temp;
+        else if (ran == 2)
+            resource = planets[planetint].GetComponent<Slot>().Resource;
+        atmosphere = planets[planetint].GetComponent<Slot>().Atmosphere;
+    }
 }
