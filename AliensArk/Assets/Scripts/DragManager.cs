@@ -12,6 +12,7 @@ public class DragManager : MonoBehaviour
     TurnManager turnManager;
     public bool dragging;
     public Alien draggedAlien;
+    public Alien lastDragged;
     private Slot startSlot; // The planet/slot the alien was on before it started being dragged
     private Slot _currentSlot;
     public Slot CurrentSlot { get => _currentSlot; set => _currentSlot = value; }
@@ -19,7 +20,7 @@ public class DragManager : MonoBehaviour
     // Called by a planet/slot hitbox where an alien is. Starts dragging the alien
     public void StartDragging(Alien alien, Slot from_slot)
     {
-        if (alien != null && from_slot != null)
+        if (alien != null && from_slot != null && lastDragged != alien)
         {
             Debug.Log($"DragManager: Starting to drag {alien.SpeciesName} from {from_slot.name}");
             dragging = true;
@@ -55,6 +56,7 @@ public class DragManager : MonoBehaviour
                     if(!(slot.Terrain == AttributeStorage.Terrain.Ship && startSlot.Terrain == AttributeStorage.Terrain.Ship))
                         turnManager.EndTurn();
                 }
+                lastDragged = draggedAlien;
                 dragging = false;
                 draggedAlien = null;
                 return true;
