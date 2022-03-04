@@ -73,7 +73,8 @@ public class Alien : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float n = health / 5;
+        float n = (float)(health / 5.0);
+        Debug.Log(n);
         spriteRenderer.color = new Color(1, n, n);
     }
 

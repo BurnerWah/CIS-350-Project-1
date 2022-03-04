@@ -1596,7 +1596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverText: {fileID: 2063958283}
-  turnsUntilWin: 15
+  turnsUntilWin: 20
   aliensDestroyed: 0
 --- !u!1 &337912915
 GameObject:
