@@ -22,7 +22,7 @@ public class TutorialManager : MonoBehaviour
     bool focusing = false;
     public bool IsFocusing => focusing;
 
-    float focus_z = -10f; // When focusing on objects, we put them at the very front so they are on top. This is that position
+    float focus_z = -30f; // When focusing on objects, we put them at the very front so they are on top. This is that position
     List<GameObject> focused_graphics = new List<GameObject>();
     List<GameObject> focused_tempGraphics = new List<GameObject>();
 
@@ -136,6 +136,12 @@ public class TutorialManager : MonoBehaviour
             //planet.GetComponent<Slot>().Hide();
         }
 
+        if (Globals.curr_highScore != 0) // Not first time
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         // Tutorial Part 0: Highlighting ship slots
         StartFocusingOn(0);
         part = 0;
@@ -178,9 +184,10 @@ public class TutorialManager : MonoBehaviour
                     StopFocusing();
                     StartFocusingOn(2);
                     planets[4].GetComponent<Slot>().Discover();
-                    part = 2;
+                    part = 3; // Skipping part 2 because of new mechanic
                 }
                 break;
+            /*
             case 2:
                 // Tutorial Part 2: Now try to find another spot
                 // Move the alien anywhere to continue
@@ -199,6 +206,7 @@ public class TutorialManager : MonoBehaviour
                     part = 3;
                 }
                 break;
+            */
             case 3:
                 // Tutorial Part 3: The alien is happy. See on the progress bar that one of the lights is lit up
                 // Click to continue
@@ -223,6 +231,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 5:
                 // Evil ship
+                // Click to continue
                 if (Input.GetMouseButtonDown(0) && curr_clickCooldown <= 0)
                 {
                     StopFocusing();
@@ -251,7 +260,7 @@ public class TutorialManager : MonoBehaviour
         focusing = true;
 
         // Blacken rest of screen
-        filterSR.color = TranslucentColor(.8f);
+        filterSR.color = TranslucentColor(.6f);
 
         // Put all objects being focused on to the foreground
 
