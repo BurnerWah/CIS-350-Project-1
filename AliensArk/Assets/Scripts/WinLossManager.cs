@@ -19,6 +19,7 @@ public class WinLossManager : MonoBehaviour
     public SlotManager slotManager;
 
     public int aliensDestroyed;
+    public bool gameOver = false;
     int score = 0;
 
 
@@ -37,7 +38,7 @@ public class WinLossManager : MonoBehaviour
         scoreText.text = $"Score: {score.ToString()}";
 
         // Check if won/lost
-        var gameOver = false;
+        gameOver = false;
         var won = false;
         if (aliensDestroyed >= spawnManager.maxAliensToSpawn - 1) // Lost
         {

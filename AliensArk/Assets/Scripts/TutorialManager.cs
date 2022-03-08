@@ -22,7 +22,7 @@ public class TutorialManager : MonoBehaviour
     bool focusing = false;
     public bool IsFocusing => focusing;
 
-    float focus_z = -30f; // When focusing on objects, we put them at the very front so they are on top. This is that position
+    float focus_z = 0;//-30f; // When focusing on objects, we put them at the very front so they are on top. This is that position
     List<GameObject> focused_graphics = new List<GameObject>();
     List<GameObject> focused_tempGraphics = new List<GameObject>();
 
@@ -33,7 +33,8 @@ public class TutorialManager : MonoBehaviour
     readonly string tempGraphicsPrefix = "Tut_";
     //Regex tempGraphicsReg = new Regex(@"^Tut_(\d)", RegexOptions.Compiled);
 
-    float curr_clickCooldown = 0, clickCooldown = 1;
+    float curr_clickCooldown = 0, clickCooldown = .2f;
+    public bool draggingAllowed = false;
 
     void Start()
     {
@@ -73,7 +74,7 @@ public class TutorialManager : MonoBehaviour
         for (int i = 0; i < canvas.transform.childCount; i++)
         {
             GameObject child = canvas.transform.GetChild(i).gameObject;
-            print($"checking child {child.name}");
+            //print($"checking child {child.name}");
             /*
             if (tempGraphicsReg.IsMatch(child.name))
             {
@@ -170,6 +171,7 @@ public class TutorialManager : MonoBehaviour
             case 1:
                 // Tutorial Part 1: Move the starting alien
                 // Move the alien anywhere to continue
+                draggingAllowed = true;
                 
                 foreach (GameObject planet in planets)
                 {
@@ -181,32 +183,26 @@ public class TutorialManager : MonoBehaviour
                 }
                 if (alienMoved)
                 {
+                    draggingAllowed = false;
                     StopFocusing();
                     StartFocusingOn(2);
                     planets[4].GetComponent<Slot>().Discover();
-                    part = 3; // Skipping part 2 because of new mechanic
+                    part = 2; // Skipping part 2 because of new mechanic
                 }
                 break;
-            /*
+            
             case 2:
-                // Tutorial Part 2: Now try to find another spot
-                // Move the alien anywhere to continue
-                alienMoved = false;
-                foreach (GameObject planet in planets)
-                {
-                    if (planet.GetComponent<Slot>().alien == startingAlien && planet != prevPlanet)
-                    {
-                        alienMoved = true;
-                    }
-                }
-                if (alienMoved)
+                // Tutorial Part 2: You can't move them the turn after you place them
+                // Click to continue
+                if (Input.GetMouseButtonDown(0) && curr_clickCooldown <= 0)
                 {
                     StopFocusing();
                     StartFocusingOn(3);
                     part = 3;
+                    curr_clickCooldown = clickCooldown;
                 }
                 break;
-            */
+            
             case 3:
                 // Tutorial Part 3: The alien is happy. See on the progress bar that one of the lights is lit up
                 // Click to continue
@@ -240,6 +236,7 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case 6: // Done
+                draggingAllowed = true;
                 spawnManager.enabled = true;
                 //TurnManager.GetTurnManager().Reset();
                 foreach(GameObject planet in planets)
@@ -293,7 +290,7 @@ public class TutorialManager : MonoBehaviour
         for (int i = 0; i < focused_tempGraphics.Count; i++)
         {
             focused_tempGraphics[i].SetActive(false);
-            //focused_tempGraphics[i].transform.position = AddZ(focused_tempGraphics[i].transform.position, -focus_z);
+            focused_tempGraphics[i].transform.position = AddZ(focused_tempGraphics[i].transform.position, -focus_z);
         }
 
         // Reset storage

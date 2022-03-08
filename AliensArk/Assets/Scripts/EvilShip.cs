@@ -12,6 +12,7 @@ public class EvilShip : MonoBehaviour
     public GameObject[] planets;
     Slot currentPlanet;
     TurnManager turnManager;
+    bool firstTime = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,7 @@ public class EvilShip : MonoBehaviour
 
     void NextTurn()
     {
-        if (turnManager.currentTurn % 5 == 1 && turnManager.currentTurn != 1)
+        if (turnManager.currentTurn % 5 == 1 )//&& turnManager.currentTurn != 1)
         {
             MoveToNextPlanet();
         }
@@ -34,10 +35,17 @@ public class EvilShip : MonoBehaviour
 
     void MoveToNextPlanet()
     {
-        print($"Evil Ship locked moving to next planet");
-        currentPlanet.Lock();
+        print($"Evil Ship moving to next planet");
+        if (firstTime)
+        {
+            firstTime = false;
+        }
+        else
+        {
+            currentPlanet.Lock();
+        }
         currentPlanet = planets[Random.Range(0, planets.Length)].GetComponent<Slot>();
-        transform.position = currentPlanet.transform.position + Vector3.right * 3;
+        transform.position = currentPlanet.transform.position + Vector3.right * 3.5f;
     }
 
     // Update is called once per frame

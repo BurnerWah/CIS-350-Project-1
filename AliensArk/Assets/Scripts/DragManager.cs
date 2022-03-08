@@ -10,6 +10,9 @@ using UnityEngine;
 public class DragManager : MonoBehaviour
 {
     TurnManager turnManager;
+    TutorialManager tutorialManager;
+    WinLossManager winLossManager;
+
     public bool dragging;
     public Alien draggedAlien;
     public Alien lastDragged;
@@ -20,8 +23,16 @@ public class DragManager : MonoBehaviour
     // Called by a planet/slot hitbox where an alien is. Starts dragging the alien
     public void StartDragging(Alien alien, Slot from_slot)
     {
-        if (alien != null && from_slot != null && lastDragged != alien)
+        if (alien != null && from_slot != null && lastDragged != alien && !from_slot.IsLocked && !winLossManager.gameOver)
         {
+            // Tutorial manager can stop dragging from happening
+            if (tutorialManager != null) // tutorial manager destroys itself when done
+            {
+                if (!tutorialManager.draggingAllowed)
+                {
+                    return;
+                }
+            }
             Debug.Log($"DragManager: Starting to drag {alien.SpeciesName} from {from_slot.name}");
             dragging = true;
             draggedAlien = alien;
@@ -47,7 +58,7 @@ public class DragManager : MonoBehaviour
         Debug.Log($"DragManager: Trying to place the dragged into {slot.name}");
         if (dragging && draggedAlien != null)
         {
-            if (slot.alien == null)
+            if (slot.alien == null && !slot.IsHidden && !slot.IsLocked)
             {
                 Place(draggedAlien, slot);
                 if (startSlot != slot)
@@ -82,6 +93,8 @@ public class DragManager : MonoBehaviour
     void Start()
     {
         turnManager = TurnManager.GetTurnManager();
+        tutorialManager = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
+        winLossManager = GameObject.Find("WinManager").GetComponent<WinLossManager>();
     }
 
     // Update is called once per frame

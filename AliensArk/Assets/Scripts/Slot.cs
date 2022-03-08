@@ -19,6 +19,9 @@ public class Slot : MonoBehaviour
     SpriteRenderer hide; // the black layer when a planet has not been discovered
     SpriteRenderer locker; // the green? layer when locked
     Text txt_lockedTurnsLeft;
+    TutorialManager tutorialManager;
+    WinLossManager winLossManager;
+
 
     // Public variables
     public Alien alien; // can only hold one
@@ -27,7 +30,8 @@ public class Slot : MonoBehaviour
     bool hidden;
     public bool IsHidden => hidden;
 
-    bool locked; // access with IsLocked()
+    bool locked;
+    public bool IsLocked => locked;
     int turnLocked, lockTime = 5;
     public string SlotTerrain;
     private AttributeStorage.Terrain _terrain;
@@ -59,6 +63,8 @@ public class Slot : MonoBehaviour
         dragManager = Object.FindObjectOfType<DragManager>();
         turnManager = TurnManager.GetTurnManager();
         turnManager.TurnEvent.AddListener(NextTurn);
+        tutorialManager = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
+        winLossManager = GameObject.Find("WinManager").GetComponent<WinLossManager>();
 
         _terrain = AttributeStorage.ParseTerrain(SlotTerrain);
         _temp = AttributeStorage.ParseTemperature(SlotTemp);
@@ -83,9 +89,9 @@ public class Slot : MonoBehaviour
             else
                 this.transform.Find("Canvas/Resource").gameObject.GetComponent<ResourceIcon>().UpdateIcon(_resource.ToString());
             // Locking
-            txt_lockedTurnsLeft = GetComponentInChildren<Text>();
+            txt_lockedTurnsLeft = transform.Find("Canvas").Find("LockedTurnsLeft").GetComponent<Text>();
             txt_lockedTurnsLeft.text = "";
-            locked = false;
+            locker = transform.Find("Locker").gameObject.GetComponent<SpriteRenderer>();
         }
 
         // Start up the hovering glow object
@@ -103,6 +109,8 @@ public class Slot : MonoBehaviour
         hide.color = Color.clear;
 
         feedbackUI = GameObject.Find("/FeedbackUIManager").GetComponent<FeedbackUI>();
+
+        Unlock();
 
         // Start hidden or not
         if (hiddenAtStart)
@@ -127,11 +135,11 @@ public class Slot : MonoBehaviour
     // When mouse enters the hitbox
     public void OnMouseEnter()
     {
-        if (alien != null)
+        if (alien != null && !winLossManager.gameOver)
         {
             feedbackUI.UpdateFeedbackDisplay(alien);
         }
-        if (!hidden)
+        if (!hidden && !locked && tutorialManager.draggingAllowed && !winLossManager.gameOver)
         {
             // Display the resource popup
             popup?.GoUp();
@@ -150,7 +158,7 @@ public class Slot : MonoBehaviour
         {
             feedbackUI.ResetFeedbackDisplay();
         }
-        if (!hidden)
+        if (true) // always can hide, for corner cases
         {
             // Hide the resource popup
             popup?.GoDown();
@@ -222,8 +230,18 @@ public class Slot : MonoBehaviour
         {
             locked = true;
             print($"{name} locked");
-            locker.enabled = true;
+            locker.gameObject.SetActive(true);
             turnLocked = turnManager.currentTurn;
+        }
+    }
+
+    public void Unlock()
+    {
+        if (isPlanet)
+        {
+            locked = false;
+            txt_lockedTurnsLeft.text = "";
+            locker.gameObject.SetActive(false);
         }
     }
 
@@ -242,15 +260,6 @@ public class Slot : MonoBehaviour
             {
                 Unlock();
             }
-        }
-    }
-
-    private void Unlock() // Could potentially be public
-    {
-        if (locked && isPlanet)
-        {
-            locked = false;
-            txt_lockedTurnsLeft.text = "";
         }
     }
 }

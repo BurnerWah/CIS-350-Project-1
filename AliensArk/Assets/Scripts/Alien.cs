@@ -74,7 +74,7 @@ public class Alien : MonoBehaviour
     void Update()
     {
         float n = (float)(health / 5.0);
-        Debug.Log(n);
+        //Debug.Log(n);
         spriteRenderer.color = new Color(1, n, n);
     }
 
