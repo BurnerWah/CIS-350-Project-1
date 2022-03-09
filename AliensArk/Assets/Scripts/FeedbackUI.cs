@@ -26,8 +26,8 @@ public class FeedbackUI : MonoBehaviour
     {
         // Initialize sprite dictionary
         atmo = new Dictionary<AttributeStorage.Atmosphere, Sprite>() {
-            { AttributeStorage.Atmosphere.Oxygen, atmo_n},
-            { AttributeStorage.Atmosphere.Nitrogen, atmo_o },
+            { AttributeStorage.Atmosphere.Oxygen, atmo_o},
+            { AttributeStorage.Atmosphere.Nitrogen, atmo_n },
             { AttributeStorage.Atmosphere.None, atmo_noair}
         };
         res = new Dictionary<AttributeStorage.Resource, Sprite>() {
@@ -79,7 +79,7 @@ public class FeedbackUI : MonoBehaviour
     public void ResetFeedbackDisplay()
     {
         alienHappinessIcons.ForEach(icon => icon.sprite = alienNotHappy);
-        GameObject.Find("/Canvas/AlienFeedback/SpeciesName").SetActive(false);
+        GameObject.Find("/Canvas/AlienFeedback/SpeciesName").GetComponent<Text>().text = "No alien selected";
         terrainIcon.gameObject.SetActive(false);
         temperatureIcon.gameObject.SetActive(false);
         atmosphereIcon.gameObject.SetActive(false);
