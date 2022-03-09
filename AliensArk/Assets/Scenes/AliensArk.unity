@@ -1943,7 +1943,7 @@ MonoBehaviour:
   gameOverText: {fileID: 2063958283}
   scoreText: {fileID: 215687889}
   highScoreText: {fileID: 214208006}
-  turnsUntilWin: 20
+  turnsUntilWin: 15
   slotManager: {fileID: 785357100}
   aliensDestroyed: 0
   gameOver: 0
