@@ -54,6 +54,8 @@ public class Alien : MonoBehaviour
 
     private TurnManager TM;
 
+    public GameObject healthLostTextPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -104,11 +106,11 @@ public class Alien : MonoBehaviour
         {
             newHappiness += 2; // change this back to 1 later
         }
-        if(Slot?.Atmosphere == Atmosphere)
+        if (Slot?.Atmosphere == Atmosphere)
         {
             newHappiness += 2;
         }
-        if(Slot?.Resource == Resource)
+        if (Slot?.Resource == Resource)
         {
             newHappiness += 1;
         }
@@ -124,11 +126,30 @@ public class Alien : MonoBehaviour
         if (happiness < 3)
         {
             health--;
+            StartCoroutine(HandleHeathText());
         }
         if (health <= 0)
         {
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator HandleHeathText()
+    {
+        var canvas = GameObject.Find("/Canvas");
+        var rectTransform = canvas.GetComponent<RectTransform>();
+        var viewport = GameObject.Find("/Main Camera").GetComponent<Camera>();
+        var camPosition = viewport.WorldToViewportPoint(transform.position);
+        var finalPosition = new Vector3(camPosition.x, camPosition.y, 0);
+        var text = Instantiate(healthLostTextPrefab, finalPosition, Quaternion.identity, canvas.transform);
+        text.GetComponent<RectTransform>().anchoredPosition = new Vector2(
+            (camPosition.x * rectTransform.sizeDelta.x) - (rectTransform.sizeDelta.x / 2),
+            (camPosition.y * rectTransform.sizeDelta.y) - (rectTransform.sizeDelta.y / 2)
+        );
+        text.SetActive(true);
+        yield return new WaitForSeconds(1);
+        text.SetActive(false);
+        Destroy(text);
     }
 
     void OnDestroy()
