@@ -92,13 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d93e55dc0684e74e9c83326939172f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   AlienSprites:
   - {fileID: 0}
   - {fileID: 0}
@@ -110,3 +103,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   spriteRenderer: {fileID: 0}
+  healthLostTextPrefab: {fileID: 2228900002568918593, guid: aa3777ddcdadb1c458d7120f858e501f,
+    type: 3}
