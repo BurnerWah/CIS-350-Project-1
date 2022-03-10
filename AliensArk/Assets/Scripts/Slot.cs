@@ -137,7 +137,7 @@ public class Slot : MonoBehaviour
     {
         if (alien != null && !winLossManager.gameOver)
         {
-            feedbackUI.UpdateFeedbackDisplay(alien);
+            feedbackUI.UpdateFeedbackDisplay(alien, this);
         }
         if (!hidden && !locked && tutorialManager.draggingAllowed && !winLossManager.gameOver)
         {
