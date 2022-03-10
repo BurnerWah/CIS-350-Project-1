@@ -154,7 +154,7 @@ public class Alien : MonoBehaviour
 
     void OnDestroy()
     {
-        GameObject.Find("/WinManager").GetComponent<WinLossManager>().aliensDestroyed++;
+        try { GameObject.Find("/WinManager").GetComponent<WinLossManager>().aliensDestroyed++; } catch {}
         TM.TurnEvent.RemoveListener(UpdateHealth);
     }
 
